@@ -88,6 +88,7 @@
     <ClInclude Include="DebugSwitch.h" />
     <ClInclude Include="GraphicClass.h" />
     <ClInclude Include="GroundClass.h" />
+    <ClInclude Include="InputClass.h" />
     <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="TimerClass.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="DebugRoom.cpp" />
     <ClCompile Include="GraphicClass.cpp" />
     <ClCompile Include="GroundClass.cpp" />
+    <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsClass.cpp" />
     <ClCompile Include="system.cpp" />
