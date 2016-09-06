@@ -1,7 +1,7 @@
 #include "DebugRoom.h"
 #include <gl\glew.h>
 #include <gl\glut.h>
-#include "BoxClass.h"
+#include "PlayerClass.h"
 
 //#include "CircleCharactorClass.h"
 //#include "GroundClass.h"
@@ -9,11 +9,11 @@
 //CircleClass Circle1;
 //CircleCharactorClass Circle2;
 
-BoxClass TestBox;
+PlayerClass TestBox;
 
 void DebugInit()
 {
-	TestBox.Initialize(&POSITION(100 , 100) , &VELOCITY(0 , 0) , &ACCELARATION(0 , 0) , &THREE_DIMENSION_VECTOR(0 , 50) ,
+	TestBox.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 50) ,
 		&THREE_DIMENSION_VECTOR(50 , 0));
 
 	//Circle1.Initialize(&POSITION(10 , 100) , &VELOCITY(1) , &ACCELARATION(0.1) , 5.0);
@@ -23,6 +23,15 @@ void DebugInit()
 	//GameMode = GAME_PLAY;
 }
 
+void DebugInput(int key , int x , int y)
+{
+	TestBox.SpecialKeyBoardDown(key);
+}
+
+void DebugInputUp(int key , int x , int y)
+{
+	TestBox.SpecialKeyBoardUp(key);
+}
 void DebugUpdate()
 {
 	TestBox.Update();

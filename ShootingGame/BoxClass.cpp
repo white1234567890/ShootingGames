@@ -150,7 +150,6 @@ void BoxClass::SetVertex()
 //////////////////////////////////////////////////////////////////////////////
 bool BoxClass::Update()
 {
-	RotateObject(M_PI / 360 * 0.1);
 	MoveObject();
 	SetVertex();
 	AccelObject();

@@ -40,6 +40,9 @@ int main(int argc , char** argv)
 
 	//コールバック関数登録
 	glutDisplayFunc(DebugDisplay);
+	glutSpecialFunc(DebugInput);
+	glutSpecialUpFunc(DebugInputUp);
+	glutIgnoreKeyRepeat(GL_TRUE);
 	glutIdleFunc(DebugUpdate);
 	glutReshapeFunc(reshape);
 
