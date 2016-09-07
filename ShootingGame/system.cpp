@@ -91,11 +91,11 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 	POSITION Box2Position = box2->GetPosition();	//box2の位置
 	VARIABLE_VERTEX Box1Vertex;	//box1の頂点
 	VARIABLE_VERTEX Box2Vertex;	//box2の頂点
-	for(int i = 0 ; i < 4 ; i++)
-	{
-		Box1Vertex.m_VertexPosition.push_back(Box1Position);
-		Box2Vertex.m_VertexPosition.push_back(Box2Position);
-	}
+	//for(int i = 0 ; i < 4 ; i++)
+	//{
+	//	Box1Vertex.m_VertexPosition.push_back(Box1Position);
+	//	Box2Vertex.m_VertexPosition.push_back(Box2Position);
+	//}
 	Box1Vertex = box1->GetVertex();
 	Box2Vertex = box2->GetVertex();
 	THREE_DIMENSION_VECTOR Box1SemiLongVector = box1->GetSemiLongVector();	//box1の半長軸ベクトル
@@ -136,11 +136,11 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.x) < box2->GetSemiLongAxis() &&
 				abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.y) < box2->GetSemiShortAxis())
 			{
-				//swapしてメモリを開放する
-				std::vector<POSITION> NullVector1;
-				Box1Vertex.m_VertexPosition.swap(NullVector1);
-				std::vector<POSITION> NullVector2;
-				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				////swapしてメモリを開放する
+				//std::vector<POSITION> NullVector1;
+				//Box1Vertex.m_VertexPosition.swap(NullVector1);
+				//std::vector<POSITION> NullVector2;
+				//Box2Vertex.m_VertexPosition.swap(NullVector2);
 				//trueを返す
 				return true;
 			}
@@ -154,11 +154,11 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.x) < box2->GetSemiShortAxis() &&
 				abs(LocalVertex_of_Box1Looking_from_Box2.m_Vector.y) < box2->GetSemiLongAxis())
 			{
-				//swapしてメモリを開放する
-				std::vector<POSITION> NullVector1;
-				Box1Vertex.m_VertexPosition.swap(NullVector1);
-				std::vector<POSITION> NullVector2;
-				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				////swapしてメモリを開放する
+				//std::vector<POSITION> NullVector1;
+				//Box1Vertex.m_VertexPosition.swap(NullVector1);
+				//std::vector<POSITION> NullVector2;
+				//Box2Vertex.m_VertexPosition.swap(NullVector2);
 				//trueを返す
 				return true;
 			}
@@ -189,11 +189,11 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.x) < box1->GetSemiLongAxis() &&
 				abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.y) < box1->GetSemiShortAxis())
 			{
-				//swapしてメモリを開放する
-				std::vector<POSITION> NullVector1;
-				Box1Vertex.m_VertexPosition.swap(NullVector1);
-				std::vector<POSITION> NullVector2;
-				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				////swapしてメモリを開放する
+				//std::vector<POSITION> NullVector1;
+				//Box1Vertex.m_VertexPosition.swap(NullVector1);
+				//std::vector<POSITION> NullVector2;
+				//Box2Vertex.m_VertexPosition.swap(NullVector2);
 				//trueを返す
 				return true;
 			}
@@ -207,22 +207,22 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 			if(abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.x) < box1->GetSemiShortAxis() &&
 				abs(LocalVertex_of_Box2Looking_from_Box1.m_Vector.y) < box1->GetSemiLongAxis())
 			{
-				//swapしてメモリを開放する
-				std::vector<POSITION> NullVector1;
-				Box1Vertex.m_VertexPosition.swap(NullVector1);
-				std::vector<POSITION> NullVector2;
-				Box2Vertex.m_VertexPosition.swap(NullVector2);
+				////swapしてメモリを開放する
+				//std::vector<POSITION> NullVector1;
+				//Box1Vertex.m_VertexPosition.swap(NullVector1);
+				//std::vector<POSITION> NullVector2;
+				//Box2Vertex.m_VertexPosition.swap(NullVector2);
 				//trueを返す
 				return true;
 			}
 		}
 
 	}
-	//swapしてメモリを開放する
-	std::vector<POSITION> NullVector1;
-	Box1Vertex.m_VertexPosition.swap(NullVector1);
-	std::vector<POSITION> NullVector2;
-	Box2Vertex.m_VertexPosition.swap(NullVector2);
+	////swapしてメモリを開放する
+	//std::vector<POSITION> NullVector1;
+	//Box1Vertex.m_VertexPosition.swap(NullVector1);
+	//std::vector<POSITION> NullVector2;
+	//Box2Vertex.m_VertexPosition.swap(NullVector2);
 	//falseを返す
 	return false;
 }
@@ -246,10 +246,10 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 
 		POSITION Box1Position = box1->GetPosition();
 		VARIABLE_VERTEX Box1Vertex;
-		for(int i = 0 ; i < 4 ; i++)
-		{
-			Box1Vertex.m_VertexPosition.push_back(Box1Position);
-		}
+		//for(int i = 0 ; i < 4 ; i++)
+		//{
+		//	Box1Vertex.m_VertexPosition.push_back(Box1Position);
+		//}
 		Box1Vertex = box1->GetVertex();
 		THREE_DIMENSION_VECTOR Box1SemiLongVector = box1->GetSemiLongVector();
 		THREE_DIMENSION_VECTOR Box1SemiShortVector = box1->GetSemiShortVector();
@@ -332,8 +332,8 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 		//頂点と当たっているか確認する
 		if(LocalVertex_of_Box1Looking_from_Circle1.m_Vector.Magnitude() < circle1->GetRadius())
 		{
-			std::vector<POSITION> NullVector;
-			Box1Vertex.m_VertexPosition.swap(NullVector);
+			//std::vector<POSITION> NullVector;
+			//Box1Vertex.m_VertexPosition.swap(NullVector);
 			return true;
 		}
 
@@ -346,8 +346,8 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 				(circle1->GetRadius() + abs(Box1SemiLongVector.y + Box1SemiShortVector.y)) *
 				(circle1->GetRadius() + abs(Box1SemiLongVector.y + Box1SemiShortVector.y)))
 			{
-				std::vector<POSITION> NullVector;
-				Box1Vertex.m_VertexPosition.swap(NullVector);
+				//std::vector<POSITION> NullVector;
+				//Box1Vertex.m_VertexPosition.swap(NullVector);
 				return true;
 			}
 		}
@@ -359,14 +359,14 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 				(circle1->GetRadius() + abs(Box1SemiLongVector.x + Box1SemiShortVector.x)) *
 				(circle1->GetRadius() + abs(Box1SemiLongVector.x + Box1SemiShortVector.x)))
 			{
-				std::vector<POSITION> NullVector;
-				Box1Vertex.m_VertexPosition.swap(NullVector);
+				//std::vector<POSITION> NullVector;
+				//Box1Vertex.m_VertexPosition.swap(NullVector);
 				return true;
 			}
 		}
 		
-		std::vector<POSITION> NullVector;
-		Box1Vertex.m_VertexPosition.swap(NullVector);
+		//std::vector<POSITION> NullVector;
+		//Box1Vertex.m_VertexPosition.swap(NullVector);
 		return false;
 		}
 
@@ -452,14 +452,19 @@ bool HitBoxandRangeContact(POSITION* object1 , POSITION* object2 , double range)
 //	double& y:ベクトルのy成分
 //	double angle:回転させる角度(ラジアン)
 //////////////////////////////////////////////////////////////////////////////
-void RotateVector2(double& x ,double& y ,double angle)
+THREE_DIMENSION_VECTOR RotateVector2(double x ,double y ,double angle)
 {
 	double TempX = x;	//一時的にx座標を入れるための変数
 	double TempY = y;	//一時的にy座標を入れるための変数
+	THREE_DIMENSION_VECTOR ret;
 
 	//行列計算
 	x = TempX * cos(angle) - TempY * sin(angle);
 	y = TempX * sin(angle) + TempY * cos(angle);
+
+	ret.Set(x , y);
+
+	return ret;
 }
 
 //////////////////////////////////////////////////////////////////////////////

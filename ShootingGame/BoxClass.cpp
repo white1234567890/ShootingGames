@@ -11,10 +11,10 @@
 //////////////////////////////////////////////////////////////////////////////
 BoxClass::BoxClass(void)
 {
-	for(int i = 0 ; i < 4 ; i++)
-	{
-		m_Vertex.m_VertexPosition.push_back(POSITION());
-	}
+	//for(int i = 0 ; i < 4 ; i++)
+	//{
+	//	m_Vertex.m_VertexPosition.push_back(POSITION());
+	//}
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -22,8 +22,8 @@ BoxClass::BoxClass(void)
 //////////////////////////////////////////////////////////////////////////////
 BoxClass::~BoxClass(void)
 {
-	std::vector<POSITION> Nullvector;
-	m_Vertex.m_VertexPosition.swap(Nullvector);
+	//std::vector<POSITION> Nullvector;
+	//m_Vertex.m_VertexPosition.swap(Nullvector);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -37,8 +37,11 @@ bool BoxClass::Initialize()
 
 void BoxClass::RotateObject(double angle)
 {
-	RotateVector2(m_SemiLongVector.x , m_SemiLongVector.y , angle);
-	RotateVector2(m_SemiShortVector.x , m_SemiShortVector.y , angle);
+	m_SemiLongVector = RotateVector2(m_SemiLongVector.x , m_SemiLongVector.y , angle);
+	m_SemiShortVector = RotateVector2(m_SemiShortVector.x , m_SemiShortVector.y , angle);
+	m_Angle += angle;
+	if(m_Angle >= M_PI * 2) m_Angle -= M_PI * 2;
+	else if(m_Angle < 0) m_Angle += M_PI * 2;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -66,7 +69,7 @@ VARIABLE_VERTEX BoxClass::GetVertex()
 //////////////////////////////////////////////////////////////////////////////
 POSITION BoxClass::GetVertex(unsigned int i)
 {
-	if(i < m_Vertex.m_VertexPosition.size())
+	if(i < m_Vertex.size())
 	{
 		return m_Vertex.m_VertexPosition[i];
 	}
@@ -81,7 +84,7 @@ POSITION BoxClass::GetVertex(unsigned int i)
 //////////////////////////////////////////////////////////////////////////////
 int BoxClass::GetVertexSize()
 {
-	return m_Vertex.m_VertexPosition.size();
+	return m_Vertex.size();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -204,7 +207,7 @@ void BoxClass::Render()
 	glBegin(GL_LINE_LOOP);
 
 	//Še’¸“_
-	for(unsigned int i = 0 ; i < m_Vertex.m_VertexPosition.size() ; i++)
+	for(unsigned int i = 0 ; i < m_Vertex.size() ; i++)
 	{
 		glVertex2d(Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(m_Vertex.m_VertexPosition[i].m_Vector.x) ,
 			Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Vertex.m_VertexPosition[i].m_Vector.y));

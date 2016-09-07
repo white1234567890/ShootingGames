@@ -119,7 +119,7 @@ bool HitBoxandRangeContact(POSITION* object1 , POSITION* object2 , double range)
 //	double& y:ベクトルのy成分
 //	double angle:回転させる角度(ラジアン)
 //////////////////////////////////////////////////////////////////////////////
-void RotateVector2(double& x ,double& y ,double angle);
+THREE_DIMENSION_VECTOR RotateVector2(double x ,double y ,double angle);
 
 
 //////////////////////////////////////////////////////////////////////////////

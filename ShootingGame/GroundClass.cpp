@@ -7,10 +7,10 @@ GroundClass Ground;
 
 GroundClass::GroundClass(void)
 {
-	for(int i = 0 ; i < 4 ; i++)
-	{
-		m_Vertex.m_VertexPosition.push_back(POSITION());
-	}
+	//for(int i = 0 ; i < 4 ; i++)
+	//{
+	//	m_Vertex.m_VertexPosition.push_back(POSITION());
+	//}
 	m_Accelaration = ACCELARATION();
 	m_Velocity = VELOCITY();
 	m_Coefficient_of_Restitution = 0;
@@ -28,8 +28,8 @@ GroundClass::GroundClass(void)
 
 GroundClass::~GroundClass(void)
 {
-	std::vector<POSITION> Nullvector;
-	m_Vertex.m_VertexPosition.swap(Nullvector);
+	//std::vector<POSITION> Nullvector;
+	//m_Vertex.m_VertexPosition.swap(Nullvector);
 }
 
 bool GroundClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag)

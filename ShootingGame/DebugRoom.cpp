@@ -32,6 +32,7 @@ void DebugInputUp(int key , int x , int y)
 {
 	TestBox.SpecialKeyBoardUp(key);
 }
+
 void DebugUpdate()
 {
 	TestBox.Update();
@@ -40,11 +41,10 @@ void DebugUpdate()
 
 void DebugDisplay()
 {
-	DebugUpdate();
-
 	//カラーバッファを初期化
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	//描画
 	TestBox.Render();
 
 	//命令の実行

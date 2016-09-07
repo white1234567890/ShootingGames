@@ -170,10 +170,27 @@ typedef struct ACCELARATION
 	ACCELARATION(double x = 0 , double y = 0 , double z = 0) : m_Vector(x , y , z){}
 }ACCELARATION;
 
-//可変長頂点
+//可変長頂点(規定値4頂点）
 typedef struct VARIABLE_VERTEX
 {
-	std::vector<POSITION> m_VertexPosition;	//頂点の座標位置
+	POSITION* m_VertexPosition;	//頂点の座標位置
+	unsigned int FactorSize;	//要素数
+
+	VARIABLE_VERTEX()
+	{
+		this->m_VertexPosition = new POSITION[4];
+		FactorSize = 4;
+	}
+
+	~VARIABLE_VERTEX()
+	{
+		delete[] this->m_VertexPosition;
+	}
+
+	unsigned int size()
+	{
+		return FactorSize;
+	}
 }VARIABLE_VERTEX;
 
 
