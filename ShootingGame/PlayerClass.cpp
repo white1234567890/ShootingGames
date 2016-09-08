@@ -57,9 +57,6 @@ void PlayerClass::PlayerCanNotOverScreen()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::InitializeChild()
 {
-	m_Child.Initialize(&POSITION(50 , 50) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(10) , &THREE_DIMENSION_VECTOR(0 , 10));
-	m_Child.SetPosition(&(m_Position.m_Vector + m_Child.GetLocalPosition().m_Vector));
-	m_Child.SetVertex();
 	return true;
 }
 
@@ -71,8 +68,6 @@ bool PlayerClass::InitializeChild()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::UpdateChild()
 {
-	m_Child.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Child.GetLocalPosition().m_Vector.x , m_Child.GetLocalPosition().m_Vector.y , m_Angle)));
-	m_Child.Update();
 	return true;
 }
 
@@ -82,9 +77,7 @@ bool PlayerClass::UpdateChild()
 //////////////////////////////////////////////////////////////////////////////
 void PlayerClass::RenderChild()
 {
-	m_Child.Render();
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 //public関数
@@ -97,26 +90,20 @@ void PlayerClass::RenderChild()
 //	*position:位置
 //	*velocity:速度
 //	*accelaration:加速度
-//	*semi_long_vector:半長軸ベクトル
-//	*semi_short_vector:半短軸ベクトル
+// radius:半径
 //	flag:フラグ
 //戻り値:
 //	true:とりあえずtrueを返す
 //////////////////////////////////////////////////////////////////////////////
-bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag)
+bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , double radius , bool flag)
 {
-	m_Position = *position;
-	m_Velocity = *velocity;
-	m_Accelaration = *accelaration;
-	m_SemiLongVector = *semi_long_vector;
-	m_SemiShortVector = *semi_short_vector;
-	m_AngleVelocity = M_PI / 360 * 0.1;
-
-	m_SemiLongAxis = m_SemiLongVector.Magnitude();
-	m_SemiShortAxis = m_SemiShortVector.Magnitude();
-
-	SetVertex();
-
+	m_Position = *position;	//位置
+	m_Velocity = *velocity;	//速度
+	m_Accelaration = *accelaration;	//加速度
+	m_Radius = radius;	//半径
+	m_Flag = flag;	//フラグ
+	
+	//子を初期化する
 	InitializeChild();
 
 	return true;
@@ -134,7 +121,6 @@ bool PlayerClass::Update()
 	RotateObject(GetAngleVelocity());	//無意味に回転させる
 	CheckInput();	//キー入力を調べる
 	MoveObject();	//移動させる
-	SetVertex();	//頂点の再計算をする
 	AccelObject();	//加速させる
 	PlayerCanNotOverScreen();	//移動範囲を制限する
 
@@ -156,18 +142,6 @@ void PlayerClass::Render()
 	glBegin(GL_POINTS);
 	glVertex2d(Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(m_Position.m_Vector.x) ,
 		Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Position.m_Vector.y));
-	glEnd();
-
-	//四角を描画
-	glBegin(GL_LINE_LOOP);
-
-	//各頂点
-	for(unsigned int i = 0 ; i < m_Vertex.size() ; i++)
-	{
-		glVertex2d(Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(m_Vertex.m_VertexPosition[i].m_Vector.x) ,
-			Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Vertex.m_VertexPosition[i].m_Vector.y));
-	}
-
 	glEnd();
 
 	RenderChild();

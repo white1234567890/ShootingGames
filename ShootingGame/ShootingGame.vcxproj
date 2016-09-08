@@ -81,13 +81,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseObjectClass.h" />
-    <ClInclude Include="BoxChildClass.h" />
     <ClInclude Include="BoxClass.h" />
     <ClInclude Include="ChildClass.h" />
     <ClInclude Include="CircleClass.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="DebugRoom.h" />
     <ClInclude Include="DebugSwitch.h" />
+    <ClInclude Include="GameMain.h" />
     <ClInclude Include="GraphicClass.h" />
     <ClInclude Include="GroundClass.h" />
     <ClInclude Include="InputClass.h" />
@@ -98,11 +98,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObjectClass.cpp" />
-    <ClCompile Include="BoxChildClass.cpp" />
     <ClCompile Include="BoxClass.cpp" />
     <ClCompile Include="ChildClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
     <ClCompile Include="DebugRoom.cpp" />
+    <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="GraphicClass.cpp" />
     <ClCompile Include="GroundClass.cpp" />
     <ClCompile Include="InputClass.cpp" />

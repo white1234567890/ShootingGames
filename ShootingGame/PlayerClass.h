@@ -1,12 +1,13 @@
 #pragma once
-#include "BoxChildClass.h"
+#include "ChildClass.h"
+#include "CircleClass.h"
 #include "InputClass.h"
 
 class PlayerClass :
-	public BoxClass , public InputClass
+	public CircleClass , public InputClass
 {
 private:
-	BoxChildClass m_Child;
+	ChildClass m_Child;
 
 	void CheckInput();
 	void PlayerCanNotOverScreen();
@@ -26,13 +27,11 @@ public:
 	//	*position:位置
 	//	*velocity:速度
 	//	*accelaration:加速度
-	//	*semi_long_vector:半長軸ベクトル
-	//	*semi_short_vector:半短軸ベクトル
 	//	flag:フラグ
 	//戻り値:
 	//	true:とりあえずtrueを返す
 	//////////////////////////////////////////////////////////////////////////////
-	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag = true);
+	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , double radius , bool flag = true);
 
 	bool Update();
 
