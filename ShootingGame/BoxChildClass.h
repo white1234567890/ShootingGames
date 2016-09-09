@@ -1,26 +1,13 @@
 #pragma once
-#include "BoxChildClass.h"
-#include "InputClass.h"
+#include "boxclass.h"
+#include "ChildClass.h"
 
-class PlayerClass :
-	public BoxClass , public InputClass
+class BoxChildClass :
+	public BoxClass , public ChildClass
 {
-private:
-	BoxChildClass m_Shoulder_R;
-	BoxChildClass m_Shoulder_L;
-	BoxChildClass m_Back;
-	BoxChildClass m_Hip;
-
-	void CheckInput();
-	void PlayerCanNotOverScreen();
-	
-	bool InitializeChild();
-	bool UpdateChild();
-	void RenderChild();
-
 public:
-	PlayerClass(void);
-	~PlayerClass(void);
+	BoxChildClass(void);
+	~BoxChildClass(void);
 
 	//////////////////////////////////////////////////////////////////////////////
 	//äTó™:
@@ -37,6 +24,10 @@ public:
 	//////////////////////////////////////////////////////////////////////////////
 	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag = true);
 
+	//////////////////////////////////////////////////////////////////////////////
+	//äTó™:
+	//	çXêV
+	//////////////////////////////////////////////////////////////////////////////
 	bool Update();
 
 	//////////////////////////////////////////////////////////////////////////////

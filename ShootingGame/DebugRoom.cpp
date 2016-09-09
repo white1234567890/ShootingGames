@@ -13,8 +13,8 @@ PlayerClass TestBox;
 
 void DebugInit()
 {
-	TestBox.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 50) ,
-		&THREE_DIMENSION_VECTOR(50 , 0));
+	TestBox.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 32) ,
+		&THREE_DIMENSION_VECTOR(32 , 0));
 
 	//Circle1.Initialize(&POSITION(10 , 100) , &VELOCITY(1) , &ACCELARATION(0.1) , 5.0);
 

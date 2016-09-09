@@ -22,8 +22,8 @@ const double PLAYER_SPEED = 5;															//プレイヤーの速さ
 
 //静的変数の宣言
 
-static int WINDOW_HEIGHT = 600;	//ウィンドウサイズ縦
-static int WINDOW_WIDTH = 800;	//ウィンドウサイズ横
+static int WINDOW_HEIGHT = 720;	//ウィンドウサイズ縦
+static int WINDOW_WIDTH = 960;	//ウィンドウサイズ横
 
 //列挙体の宣言
 enum GAME_MODE

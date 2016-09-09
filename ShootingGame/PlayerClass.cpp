@@ -57,9 +57,25 @@ void PlayerClass::PlayerCanNotOverScreen()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::InitializeChild()
 {
-	m_Child.Initialize(&POSITION(50 , 50) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(10) , &THREE_DIMENSION_VECTOR(0 , 10));
-	m_Child.SetPosition(&(m_Position.m_Vector + m_Child.GetLocalPosition().m_Vector));
-	m_Child.SetVertex();
+	//右肩
+	m_Shoulder_R.Initialize(&POSITION(32 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5));
+	m_Shoulder_R.SetPosition(&(m_Position.m_Vector + m_Shoulder_R.GetLocalPosition().m_Vector));
+	m_Shoulder_R.SetVertex();
+	
+	//左肩
+	m_Shoulder_L.Initialize(&POSITION(-32 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5));
+	m_Shoulder_L.SetPosition(&(m_Position.m_Vector + m_Shoulder_L.GetLocalPosition().m_Vector));
+	m_Shoulder_L.SetVertex();
+	
+	//背中
+	m_Back.Initialize(&POSITION(0 , 15) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 10));
+	m_Back.SetPosition(&(m_Position.m_Vector + m_Back.GetLocalPosition().m_Vector));
+	m_Back.SetVertex();
+
+	//腰
+	m_Hip.Initialize(&POSITION(0 , -5) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(20) , &THREE_DIMENSION_VECTOR(0 , 5));
+	m_Hip.SetPosition(&(m_Position.m_Vector + m_Hip.GetLocalPosition().m_Vector));
+	m_Hip.SetVertex();
 	return true;
 }
 
@@ -71,8 +87,22 @@ bool PlayerClass::InitializeChild()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::UpdateChild()
 {
-	m_Child.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Child.GetLocalPosition().m_Vector.x , m_Child.GetLocalPosition().m_Vector.y , m_Angle)));
-	m_Child.Update();
+	//右肩
+	m_Shoulder_R.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Shoulder_R.GetLocalPosition().m_Vector.x , m_Shoulder_R.GetLocalPosition().m_Vector.y , m_Angle)));
+	m_Shoulder_R.Update();
+
+	//左肩
+	m_Shoulder_L.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Shoulder_L.GetLocalPosition().m_Vector.x , m_Shoulder_L.GetLocalPosition().m_Vector.y , m_Angle)));
+	m_Shoulder_L.Update();
+
+	//背中
+	m_Back.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Back.GetLocalPosition().m_Vector.x , m_Back.GetLocalPosition().m_Vector.y , m_Angle)));
+	m_Back.Update();
+
+	//腰
+	m_Hip.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Hip.GetLocalPosition().m_Vector.x , m_Hip.GetLocalPosition().m_Vector.y , m_Angle)));
+	m_Hip.Update();
+
 	return true;
 }
 
@@ -82,7 +112,17 @@ bool PlayerClass::UpdateChild()
 //////////////////////////////////////////////////////////////////////////////
 void PlayerClass::RenderChild()
 {
-	m_Child.Render();
+	//右肩
+	m_Shoulder_R.Render();
+
+	//左肩
+	m_Shoulder_L.Render();
+
+	//背中
+	m_Back.Render();
+
+	//腰
+	m_Hip.Render();
 }
 
 
@@ -110,7 +150,6 @@ bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARAT
 	m_Accelaration = *accelaration;
 	m_SemiLongVector = *semi_long_vector;
 	m_SemiShortVector = *semi_short_vector;
-	m_AngleVelocity = M_PI / 360 * 0.1;
 
 	m_SemiLongAxis = m_SemiLongVector.Magnitude();
 	m_SemiShortAxis = m_SemiShortVector.Magnitude();
@@ -131,7 +170,6 @@ bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARAT
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::Update()
 {
-	RotateObject(GetAngleVelocity());	//無意味に回転させる
 	CheckInput();	//キー入力を調べる
 	MoveObject();	//移動させる
 	SetVertex();	//頂点の再計算をする
@@ -152,14 +190,8 @@ void PlayerClass::Render()
 	//色設定（白）
 	glColor3f(1.f , 1.f , 1.f);
 
-	//中心点を描画
-	glBegin(GL_POINTS);
-	glVertex2d(Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(m_Position.m_Vector.x) ,
-		Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Position.m_Vector.y));
-	glEnd();
-
 	//四角を描画
-	glBegin(GL_LINE_LOOP);
+	glBegin(GL_POLYGON);
 
 	//各頂点
 	for(unsigned int i = 0 ; i < m_Vertex.size() ; i++)

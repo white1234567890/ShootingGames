@@ -194,24 +194,4 @@ bool BoxClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION
 //////////////////////////////////////////////////////////////////////////////
 void BoxClass::Render()
 {
-	//色設定（白）
-	glColor3f(1.f , 1.f , 1.f);
-
-	//中心点を描画
-	glBegin(GL_POINTS);
-	glVertex2d(Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(m_Position.m_Vector.x) ,
-		Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Position.m_Vector.y));
-	glEnd();
-
-	//四角を描画
-	glBegin(GL_LINE_LOOP);
-
-	//各頂点
-	for(unsigned int i = 0 ; i < m_Vertex.size() ; i++)
-	{
-		glVertex2d(Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(m_Vertex.m_VertexPosition[i].m_Vector.x) ,
-			Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Vertex.m_VertexPosition[i].m_Vector.y));
-	}
-
-	glEnd();
 }
