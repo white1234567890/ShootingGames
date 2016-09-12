@@ -3,12 +3,7 @@
 #include <gl\glew.h>
 #include <gl\glut.h>
 
-#ifdef DEBUG
 #include "DebugRoom.h"
-#endif // DEBUG
-
-#include "GameMain.h"
-
 
 //変数の実体化
 GAME_MODE GameMode = GAME_INIT;
@@ -40,20 +35,6 @@ int main(int argc , char** argv)
 	glutReshapeFunc(DebugReshape);
 
 #endif // DEBUG
-
-#ifdef noDEBUG
-	//初期化
-	Init();
-	
-	//コールバック関数登録
-	glutDisplayFunc(Display);
-	glutSpecialFunc(InputSpetialKeyDown);
-	glutSpecialUpFunc(InputSpetialKeyUp);
-	glutIgnoreKeyRepeat(GL_TRUE);
-	glutIdleFunc(Update);
-	glutReshapeFunc(reshape);
-
-#endif // noDEBUG
 
 	//カラーバッファの初期値
 	glClearColor(0 , 0 , 0 , 1.f);

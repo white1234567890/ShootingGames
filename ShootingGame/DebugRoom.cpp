@@ -6,7 +6,6 @@
 #include "BackPartsClass.h"
 #include "HipPartsClass.h"
 
-<<<<<<< HEAD
 void DebugReshape(int x , int y)
 {
 	WINDOW_WIDTH = x;
@@ -26,13 +25,6 @@ void DebugInit()
 {
 	TestPlayer.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 32) ,
 		&THREE_DIMENSION_VECTOR(32) , &TestShoulderL , &TestShoulderR , &TestBack , &TestHip);
-=======
-PlayerClass TestPlayer;
-
-void DebugInit()
-{
-	TestPlayer.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() ,10);
->>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
 }
 
 void DebugInput(int key , int x , int y)
