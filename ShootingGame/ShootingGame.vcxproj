@@ -80,35 +80,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackPartsClass.h" />
     <ClInclude Include="BaseObjectClass.h" />
-    <ClInclude Include="BoxChildClass.h" />
     <ClInclude Include="BoxClass.h" />
-    <ClInclude Include="ChildClass.h" />
+    <ClInclude Include="BulletClass.h" />
     <ClInclude Include="CircleClass.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="DebugRoom.h" />
     <ClInclude Include="DebugSwitch.h" />
+    <ClInclude Include="GameMain.h" />
     <ClInclude Include="GraphicClass.h" />
-    <ClInclude Include="GroundClass.h" />
+    <ClInclude Include="HipPartsClass.h" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="PlayerClass.h" />
+    <ClInclude Include="ShoulderPartsClass.h" />
+    <ClInclude Include="SingletonClass.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="TimerClass.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackPartsClass.cpp" />
     <ClCompile Include="BaseObjectClass.cpp" />
-    <ClCompile Include="BoxChildClass.cpp" />
     <ClCompile Include="BoxClass.cpp" />
-    <ClCompile Include="ChildClass.cpp" />
+    <ClCompile Include="BulletClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
     <ClCompile Include="DebugRoom.cpp" />
+    <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="GraphicClass.cpp" />
-    <ClCompile Include="GroundClass.cpp" />
+    <ClCompile Include="HipPartsClass.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsClass.cpp" />
     <ClCompile Include="PlayerClass.cpp" />
+    <ClCompile Include="ShoulderPartsClass.cpp" />
     <ClCompile Include="system.cpp" />
     <ClCompile Include="TimerClass.cpp" />
   </ItemGroup>

@@ -1,29 +1,20 @@
 #pragma once
-
-#define SCREEN_HEIGHT_ASPECT 3	//画面縦比
-#define SCREEN_WIDTH_ASPECT 4	//画面横比
-#define SCREEN_SIZE 200				//画面サイズ
 #include "DebugSwitch.h"
 
 #include <vector>
 
 //定数の宣言
-const int WINDOW_SIZE_HEIGHT = SCREEN_SIZE * SCREEN_HEIGHT_ASPECT;	//画面サイズ縦
-const int WINDOW_SIZE_WIDTH = SCREEN_SIZE * SCREEN_WIDTH_ASPECT;		//画面サイズ横
-const int SCREEN_HEIGHT = WINDOW_SIZE_HEIGHT;									//ゲーム画面サイズ縦
-const int SCREEN_WIDTH = WINDOW_SIZE_WIDTH / 3 * 2;								//ゲーム画面サイズ横
-const int SCREEN_OVER_LEFT = -100;														//画面外定義
-const int SCREEN_OVER_RIGHT = SCREEN_WIDTH + 100;								//画面外定義
-const int SCREEN_OVER_UP = - 100;														//画面外定義
-const int SCREEN_OVER_DOWN = SCREEN_HEIGHT + 100;								//画面外定義
-const int maxdot = 1;																			//出現させるドットの最大数
-const int MAX_DROP_SPEED = 20;															//落下速度最大値
-const double PLAYER_SPEED = 5;															//プレイヤーの速さ
+
+static const double PLAYER_SPEED = 50;	//プレイヤーの速さ
+static const int BASE_WINDOW_HEIGHT = 720;
+static const int BASE_WINDOW_WIDTH = 960;
+static const double PLAYER_SPEED_Y_ASPECT = PLAYER_SPEED / BASE_WINDOW_HEIGHT;	//プレイヤーの速さのy軸比
+static const double PLAYER_SPEED_X_ASPECT = PLAYER_SPEED / BASE_WINDOW_WIDTH;	//プレイヤーの速さのx軸比
 
 //静的変数の宣言
 
-static int WINDOW_HEIGHT = 720;	//ウィンドウサイズ縦
-static int WINDOW_WIDTH = 960;	//ウィンドウサイズ横
+static int WINDOW_HEIGHT = BASE_WINDOW_HEIGHT;	//ウィンドウサイズ縦
+static int WINDOW_WIDTH = BASE_WINDOW_WIDTH;	//ウィンドウサイズ横
 
 //列挙体の宣言
 enum GAME_MODE

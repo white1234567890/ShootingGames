@@ -8,18 +8,6 @@
 //変数の実体化
 GAME_MODE GameMode = GAME_INIT;
 
-void reshape(int x , int y)
-{
-	WINDOW_WIDTH = x;
-	WINDOW_HEIGHT = y;
-
-	//ビューポート設定
-	glViewport(0 , 0 , x , y);
-
-	//変換行列の初期化
-	glLoadIdentity();
-}
-
 int main(int argc , char** argv)
 {
 	//glutの初期化
@@ -44,7 +32,7 @@ int main(int argc , char** argv)
 	glutSpecialUpFunc(DebugInputUp);
 	glutIgnoreKeyRepeat(GL_TRUE);
 	glutIdleFunc(DebugUpdate);
-	glutReshapeFunc(reshape);
+	glutReshapeFunc(DebugReshape);
 
 #endif // DEBUG
 

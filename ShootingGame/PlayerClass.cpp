@@ -1,14 +1,23 @@
 #include "PlayerClass.h"
-#include "system.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 #include <gl\glew.h>
 #include <gl\glut.h>
 
+#include "system.h"
+#include "ShoulderPartsClass.h"
+#include "BackPartsClass.h"
+#include "HipPartsClass.h"
+
+//実体化
+PlayerClass TestPlayer;
+
 //コンストラクタ
 PlayerClass::PlayerClass(void)
 {
+	m_Pointer_to_Shoulder_L = NULL;
+	m_Pointer_to_Shoulder_R = NULL;
 }
 
 //デストラクタ
@@ -26,10 +35,10 @@ PlayerClass::~PlayerClass(void)
 //////////////////////////////////////////////////////////////////////////////
 void PlayerClass::CheckInput()
 {
-	if(m_InputKeyFlag & E_UP_ARROW_KEY) m_Velocity.m_Vector.y = 0.1;	//↑キー
-	if(m_InputKeyFlag & E_LEFT_ARROW_KEY) m_Velocity.m_Vector.x = -0.1;	//←キー
-	if(m_InputKeyFlag & E_RIGHT_ARROW_KEY) m_Velocity.m_Vector.x = 0.1;	//→キー
-	if(m_InputKeyFlag & E_DOWN_ARROW_KEY) m_Velocity.m_Vector.y = -0.1;	//↓キー
+	if(m_InputKeyFlag & E_UP_ARROW_KEY) m_Velocity.m_Vector.y = m_PLAYER_Y_SPEED;	//↑キー
+	if(m_InputKeyFlag & E_LEFT_ARROW_KEY) m_Velocity.m_Vector.x = -m_PLAYER_X_SPEED;	//←キー
+	if(m_InputKeyFlag & E_RIGHT_ARROW_KEY) m_Velocity.m_Vector.x = m_PLAYER_X_SPEED;	//→キー
+	if(m_InputKeyFlag & E_DOWN_ARROW_KEY) m_Velocity.m_Vector.y = -m_PLAYER_Y_SPEED;	//↓キー
 
 	//↑キーも↓キーも押されていなかったらy軸方向の速度成分を0にする
 	if(!(m_InputKeyFlag & E_UP_ARROW_KEY || m_InputKeyFlag & E_DOWN_ARROW_KEY)) m_Velocity.m_Vector.y = 0;
@@ -57,25 +66,14 @@ void PlayerClass::PlayerCanNotOverScreen()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::InitializeChild()
 {
-	//右肩
-	m_Shoulder_R.Initialize(&POSITION(32 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5));
-	m_Shoulder_R.SetPosition(&(m_Position.m_Vector + m_Shoulder_R.GetLocalPosition().m_Vector));
-	m_Shoulder_R.SetVertex();
-	
 	//左肩
-	m_Shoulder_L.Initialize(&POSITION(-32 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5));
-	m_Shoulder_L.SetPosition(&(m_Position.m_Vector + m_Shoulder_L.GetLocalPosition().m_Vector));
-	m_Shoulder_L.SetVertex();
-	
+	m_Pointer_to_Shoulder_L->Initialize(&POSITION(10 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
+	//右肩
+	m_Pointer_to_Shoulder_R->Initialize(&POSITION(-10 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
 	//背中
-	m_Back.Initialize(&POSITION(0 , 15) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 10));
-	m_Back.SetPosition(&(m_Position.m_Vector + m_Back.GetLocalPosition().m_Vector));
-	m_Back.SetVertex();
-
+	m_Pointer_to_Back->Initialize(&POSITION(0 , 10) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 10) , &THREE_DIMENSION_VECTOR(5) , this);
 	//腰
-	m_Hip.Initialize(&POSITION(0 , -5) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(20) , &THREE_DIMENSION_VECTOR(0 , 5));
-	m_Hip.SetPosition(&(m_Position.m_Vector + m_Hip.GetLocalPosition().m_Vector));
-	m_Hip.SetVertex();
+	m_Pointer_to_Hip->Initialize(&POSITION(0 , -10) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(10) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
 	return true;
 }
 
@@ -87,22 +85,6 @@ bool PlayerClass::InitializeChild()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::UpdateChild()
 {
-	//右肩
-	m_Shoulder_R.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Shoulder_R.GetLocalPosition().m_Vector.x , m_Shoulder_R.GetLocalPosition().m_Vector.y , m_Angle)));
-	m_Shoulder_R.Update();
-
-	//左肩
-	m_Shoulder_L.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Shoulder_L.GetLocalPosition().m_Vector.x , m_Shoulder_L.GetLocalPosition().m_Vector.y , m_Angle)));
-	m_Shoulder_L.Update();
-
-	//背中
-	m_Back.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Back.GetLocalPosition().m_Vector.x , m_Back.GetLocalPosition().m_Vector.y , m_Angle)));
-	m_Back.Update();
-
-	//腰
-	m_Hip.SetPosition(&(m_Position.m_Vector + RotateVector2(m_Hip.GetLocalPosition().m_Vector.x , m_Hip.GetLocalPosition().m_Vector.y , m_Angle)));
-	m_Hip.Update();
-
 	return true;
 }
 
@@ -112,23 +94,26 @@ bool PlayerClass::UpdateChild()
 //////////////////////////////////////////////////////////////////////////////
 void PlayerClass::RenderChild()
 {
-	//右肩
-	m_Shoulder_R.Render();
-
 	//左肩
-	m_Shoulder_L.Render();
-
+	m_Pointer_to_Shoulder_L->Render(&m_Position);
+	//右肩
+	m_Pointer_to_Shoulder_R->Render(&m_Position);
 	//背中
-	m_Back.Render();
-
+	m_Pointer_to_Back->Render(&m_Position);
 	//腰
-	m_Hip.Render();
+	m_Pointer_to_Hip->Render(&m_Position);
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //public関数
 //////////////////////////////////////////////////////////////////////////////
+
+void PlayerClass::SetPlayerSpeed(double x , double y)
+{
+	m_PLAYER_X_SPEED = x;
+	m_PLAYER_Y_SPEED = y;
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
@@ -143,7 +128,7 @@ void PlayerClass::RenderChild()
 //戻り値:
 //	true:とりあえずtrueを返す
 //////////////////////////////////////////////////////////////////////////////
-bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag)
+bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag)
 {
 	m_Position = *position;
 	m_Velocity = *velocity;
@@ -155,6 +140,13 @@ bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARAT
 	m_SemiShortAxis = m_SemiShortVector.Magnitude();
 
 	SetVertex();
+
+	m_Pointer_to_Shoulder_L = shoulder_l;
+	m_Pointer_to_Shoulder_R = shoulder_r;
+	m_Pointer_to_Back = back;
+	m_Pointer_to_Hip = hip;
+
+	SetPlayerSpeed(PLAYER_SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000 , PLAYER_SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000);
 
 	InitializeChild();
 

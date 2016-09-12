@@ -1,15 +1,21 @@
 #pragma once
-#include "BoxChildClass.h"
+#include "BoxClass.h"
 #include "InputClass.h"
+
+class ShoulderPartsClass;
+class BackPartsClass;
+class HipPartsClass;
 
 class PlayerClass :
 	public BoxClass , public InputClass
 {
 private:
-	BoxChildClass m_Shoulder_R;
-	BoxChildClass m_Shoulder_L;
-	BoxChildClass m_Back;
-	BoxChildClass m_Hip;
+	ShoulderPartsClass *m_Pointer_to_Shoulder_L;
+	ShoulderPartsClass *m_Pointer_to_Shoulder_R;
+	BackPartsClass *m_Pointer_to_Back;
+	HipPartsClass *m_Pointer_to_Hip;
+	double m_PLAYER_X_SPEED;
+	double m_PLAYER_Y_SPEED;
 
 	void CheckInput();
 	void PlayerCanNotOverScreen();
@@ -21,6 +27,8 @@ private:
 public:
 	PlayerClass(void);
 	~PlayerClass(void);
+
+	void SetPlayerSpeed(double x , double y);
 
 	//////////////////////////////////////////////////////////////////////////////
 	//ŠT—ª:
@@ -35,7 +43,7 @@ public:
 	//–ß‚è’l:
 	//	true:‚Æ‚è‚ ‚¦‚¸true‚ð•Ô‚·
 	//////////////////////////////////////////////////////////////////////////////
-	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag = true);
+	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag = true);
 
 	bool Update();
 
@@ -46,3 +54,4 @@ public:
 	void Render();
 };
 
+extern PlayerClass TestPlayer;

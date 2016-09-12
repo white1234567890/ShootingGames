@@ -2,40 +2,44 @@
 #include <gl\glew.h>
 #include <gl\glut.h>
 #include "PlayerClass.h"
+#include "ShoulderPartsClass.h"
+#include "BackPartsClass.h"
+#include "HipPartsClass.h"
 
-//#include "CircleCharactorClass.h"
-//#include "GroundClass.h"
+void DebugReshape(int x , int y)
+{
+	WINDOW_WIDTH = x;
+	WINDOW_HEIGHT = y;
 
-//CircleClass Circle1;
-//CircleCharactorClass Circle2;
+	TestPlayer.SetPlayerSpeed(PLAYER_SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000 , PLAYER_SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000);
 
-PlayerClass TestBox;
+	//ビューポート設定
+	glViewport(0 , 0 , x , y);
+
+	//変換行列の初期化
+	glLoadIdentity();
+}
+
 
 void DebugInit()
 {
-	TestBox.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 32) ,
-		&THREE_DIMENSION_VECTOR(32 , 0));
-
-	//Circle1.Initialize(&POSITION(10 , 100) , &VELOCITY(1) , &ACCELARATION(0.1) , 5.0);
-
-	//Circle2.Initialize(&POSITION(10 , 200) , &VELOCITY(1) , &ACCELARATION(0.1) , 20.0);
-
-	//GameMode = GAME_PLAY;
+	TestPlayer.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 32) ,
+		&THREE_DIMENSION_VECTOR(32) , &TestShoulderL , &TestShoulderR , &TestBack , &TestHip);
 }
 
 void DebugInput(int key , int x , int y)
 {
-	TestBox.SpecialKeyBoardDown(key);
+	TestPlayer.SpecialKeyBoardDown(key);
 }
 
 void DebugInputUp(int key , int x , int y)
 {
-	TestBox.SpecialKeyBoardUp(key);
+	TestPlayer.SpecialKeyBoardUp(key);
 }
 
 void DebugUpdate()
 {
-	TestBox.Update();
+	TestPlayer.Update();
 	glutPostRedisplay();
 }
 
@@ -45,14 +49,8 @@ void DebugDisplay()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//描画
-	TestBox.Render();
+	TestPlayer.Render();
 
 	//命令の実行
 	glutSwapBuffers();
-
-	//Circle1.Update();
-	//Circle2.Update(&Ground);
-	//Circle1.Render();
-	//Circle2.Render();
-	//Ground.Render();
 }
