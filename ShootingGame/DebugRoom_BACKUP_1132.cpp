@@ -32,7 +32,7 @@ PlayerClass TestPlayer;
 void DebugInit()
 {
 	TestPlayer.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() ,10);
->>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
+>>>>>>> origin
 }
 
 void DebugInput(int key , int x , int y)

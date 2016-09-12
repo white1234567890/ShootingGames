@@ -66,7 +66,11 @@
     <ClInclude Include="BulletClass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="SingletonClass.h">
+=======
+    <ClInclude Include="GameMain.h">
+>>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -116,7 +120,11 @@
     <ClCompile Include="HipPartsClass.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="BulletClass.cpp">
+=======
+    <ClCompile Include="GameMain.cpp">
+>>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -66,6 +66,7 @@ void PlayerClass::PlayerCanNotOverScreen()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::InitializeChild()
 {
+<<<<<<< HEAD
 	//左肩
 	m_Pointer_to_Shoulder_L->Initialize(&POSITION(10 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
 	//右肩
@@ -74,6 +75,8 @@ bool PlayerClass::InitializeChild()
 	m_Pointer_to_Back->Initialize(&POSITION(0 , 10) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 10) , &THREE_DIMENSION_VECTOR(5) , this);
 	//腰
 	m_Pointer_to_Hip->Initialize(&POSITION(0 , -10) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(10) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
+=======
+>>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
 	return true;
 }
 
@@ -94,6 +97,7 @@ bool PlayerClass::UpdateChild()
 //////////////////////////////////////////////////////////////////////////////
 void PlayerClass::RenderChild()
 {
+<<<<<<< HEAD
 	//左肩
 	m_Pointer_to_Shoulder_L->Render(&m_Position);
 	//右肩
@@ -102,8 +106,9 @@ void PlayerClass::RenderChild()
 	m_Pointer_to_Back->Render(&m_Position);
 	//腰
 	m_Pointer_to_Hip->Render(&m_Position);
+=======
+>>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
 }
-
 
 //////////////////////////////////////////////////////////////////////////////
 //public関数
@@ -122,12 +127,12 @@ void PlayerClass::SetPlayerSpeed(double x , double y)
 //	*position:位置
 //	*velocity:速度
 //	*accelaration:加速度
-//	*semi_long_vector:半長軸ベクトル
-//	*semi_short_vector:半短軸ベクトル
+// radius:半径
 //	flag:フラグ
 //戻り値:
 //	true:とりあえずtrueを返す
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag)
 {
 	m_Position = *position;
@@ -148,6 +153,17 @@ bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARAT
 
 	SetPlayerSpeed(PLAYER_SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000 , PLAYER_SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000);
 
+=======
+bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , double radius , bool flag)
+{
+	m_Position = *position;	//位置
+	m_Velocity = *velocity;	//速度
+	m_Accelaration = *accelaration;	//加速度
+	m_Radius = radius;	//半径
+	m_Flag = flag;	//フラグ
+	
+	//子を初期化する
+>>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
 	InitializeChild();
 
 	return true;
@@ -164,7 +180,6 @@ bool PlayerClass::Update()
 {
 	CheckInput();	//キー入力を調べる
 	MoveObject();	//移動させる
-	SetVertex();	//頂点の再計算をする
 	AccelObject();	//加速させる
 	PlayerCanNotOverScreen();	//移動範囲を制限する
 
@@ -182,6 +197,7 @@ void PlayerClass::Render()
 	//色設定（白）
 	glColor3f(1.f , 1.f , 1.f);
 
+<<<<<<< HEAD
 	//四角を描画
 	glBegin(GL_POLYGON);
 
@@ -192,6 +208,12 @@ void PlayerClass::Render()
 			Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Vertex.m_VertexPosition[i].m_Vector.y));
 	}
 
+=======
+	//中心点を描画
+	glBegin(GL_POINTS);
+	glVertex2d(Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(m_Position.m_Vector.x) ,
+		Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesY(m_Position.m_Vector.y));
+>>>>>>> 01baa79cb0d485862d37499ae753f38b6866ee30
 	glEnd();
 
 	RenderChild();
