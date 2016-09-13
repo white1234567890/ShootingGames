@@ -17,14 +17,18 @@ private:
 	double m_PLAYER_X_SPEED;
 	double m_PLAYER_Y_SPEED;
 
+	bool m_ShotFlag;
+
 	void CheckInput();
 	void PlayerCanNotOverScreen();
+	void MoveObject();
 	
 	bool InitializeChild();
 	bool UpdateChild();
 	void RenderChild();
 
 public:
+
 	PlayerClass(void);
 	~PlayerClass(void);
 

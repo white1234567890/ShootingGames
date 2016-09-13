@@ -185,5 +185,6 @@ typedef struct VARIABLE_VERTEX
 }VARIABLE_VERTEX;
 
 
+
 //変数の宣言
 extern GAME_MODE GameMode;		//ゲームモード指定用変数

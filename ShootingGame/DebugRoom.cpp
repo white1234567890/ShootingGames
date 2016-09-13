@@ -20,25 +20,16 @@ void DebugReshape(int x , int y)
 	glLoadIdentity();
 }
 
-
 void DebugInit()
 {
 	TestPlayer.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 32) ,
 		&THREE_DIMENSION_VECTOR(32) , &TestShoulderL , &TestShoulderR , &TestBack , &TestHip);
-}
-
-void DebugInput(int key , int x , int y)
-{
-	TestPlayer.SpecialKeyBoardDown(key);
-}
-
-void DebugInputUp(int key , int x , int y)
-{
-	TestPlayer.SpecialKeyBoardUp(key);
+	TestShoulderL.SetShotStatus(1 , &VELOCITY(0 , 1) , 1 , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5));
 }
 
 void DebugUpdate()
 {
+	TestPlayer.KeyBoard();
 	TestPlayer.Update();
 	glutPostRedisplay();
 }

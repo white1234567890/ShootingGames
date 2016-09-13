@@ -84,6 +84,7 @@
     <ClInclude Include="BaseObjectClass.h" />
     <ClInclude Include="BoxClass.h" />
     <ClInclude Include="BulletClass.h" />
+    <ClInclude Include="BulletManagerClass.h" />
     <ClInclude Include="CircleClass.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="DebugRoom.h" />
@@ -92,6 +93,7 @@
     <ClInclude Include="GraphicClass.h" />
     <ClInclude Include="HipPartsClass.h" />
     <ClInclude Include="InputClass.h" />
+    <ClInclude Include="ListClass.h" />
     <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="PlayerClass.h" />
     <ClInclude Include="ShoulderPartsClass.h" />
@@ -104,6 +106,7 @@
     <ClCompile Include="BaseObjectClass.cpp" />
     <ClCompile Include="BoxClass.cpp" />
     <ClCompile Include="BulletClass.cpp" />
+    <ClCompile Include="BulletManagerClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
     <ClCompile Include="DebugRoom.cpp" />
     <ClCompile Include="GameMain.cpp" />

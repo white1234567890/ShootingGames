@@ -41,9 +41,14 @@ void PlayerClass::CheckInput()
 	if(m_InputKeyFlag & E_DOWN_ARROW_KEY) m_Velocity.m_Vector.y = -m_PLAYER_Y_SPEED;	//↓キー
 
 	//↑キーも↓キーも押されていなかったらy軸方向の速度成分を0にする
-	if(!(m_InputKeyFlag & E_UP_ARROW_KEY || m_InputKeyFlag & E_DOWN_ARROW_KEY)) m_Velocity.m_Vector.y = 0;
+	if(!(m_InputKeyFlag & E_UP_ARROW_KEY || m_InputKeyFlag & E_DOWN_ARROW_KEY) || 
+		(m_InputKeyFlag & E_UP_ARROW_KEY && m_InputKeyFlag & E_DOWN_ARROW_KEY)) m_Velocity.m_Vector.y = 0;
 	//←キーも→キーも押されていなかったらx軸方向の速度成分を0にする
-	if(!(m_InputKeyFlag & E_LEFT_ARROW_KEY || m_InputKeyFlag & E_RIGHT_ARROW_KEY)) m_Velocity.m_Vector.x = 0;
+	if(!(m_InputKeyFlag & E_LEFT_ARROW_KEY || m_InputKeyFlag & E_RIGHT_ARROW_KEY) ||
+		(m_InputKeyFlag & E_LEFT_ARROW_KEY && m_InputKeyFlag & E_RIGHT_ARROW_KEY)) m_Velocity.m_Vector.x = 0;
+
+	if(m_InputKeyFlag & E_Z_KEY) m_ShotFlag = true;	//Zキーでショットフラグを立てる
+	else m_ShotFlag = false;	//Zキーを離すと消す
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -56,6 +61,18 @@ void PlayerClass::PlayerCanNotOverScreen()
 	if(m_Position.m_Vector.y < 0) m_Position.m_Vector.y = 0;
 	if(m_Position.m_Vector.x > WINDOW_WIDTH) m_Position.m_Vector.x = WINDOW_WIDTH;
 	if(m_Position.m_Vector.x < 0) m_Position.m_Vector.x = 0;
+}
+
+void PlayerClass::MoveObject()
+{
+	if(m_InputKeyFlag & E_SHIFT_KEY)
+	{
+		m_Position.m_Vector += m_Velocity.m_Vector * 0.5;
+	}
+	else
+	{
+		m_Position.m_Vector += m_Velocity.m_Vector;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -85,6 +102,7 @@ bool PlayerClass::InitializeChild()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::UpdateChild()
 {
+	m_Pointer_to_Shoulder_L->Update(m_ShotFlag);
 	return true;
 }
 
@@ -169,6 +187,7 @@ bool PlayerClass::Update()
 	PlayerCanNotOverScreen();	//移動範囲を制限する
 
 	UpdateChild();
+	
 
 	return true;
 }
