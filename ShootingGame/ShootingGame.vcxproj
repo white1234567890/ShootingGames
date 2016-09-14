@@ -97,7 +97,6 @@
     <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="PlayerClass.h" />
     <ClInclude Include="ShoulderPartsClass.h" />
-    <ClInclude Include="SingletonClass.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="TimerClass.h" />
   </ItemGroup>
@@ -117,7 +116,6 @@
     <ClCompile Include="PhysicsClass.cpp" />
     <ClCompile Include="PlayerClass.cpp" />
     <ClCompile Include="ShoulderPartsClass.cpp" />
-    <ClCompile Include="SingletonClass.cpp" />
     <ClCompile Include="system.cpp" />
     <ClCompile Include="TimerClass.cpp" />
   </ItemGroup>

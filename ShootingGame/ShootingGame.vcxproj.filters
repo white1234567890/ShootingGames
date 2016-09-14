@@ -66,9 +66,6 @@
     <ClInclude Include="BulletClass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SingletonClass.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BulletManagerClass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -126,9 +123,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="BulletManagerClass.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SingletonClass.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
