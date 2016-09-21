@@ -4,8 +4,9 @@ template<class T>
 class SingletonClass
 {
 private:
-	void operator = (const SingletonClass& obj) {}	//代入演算子の禁止
-	SingletonClass(const SingletonClass &obj) {}	//コピーコンストラクタの禁止
+	SingletonClass& operator = (const SingletonClass& obj) {}	//代入演算子の禁止
+	SingletonClass(const T& obj) {}	//コピーコンストラクタの禁止
+	static T* instance;
 
 protected:
 	SingletonClass() {}	//外部でのインスタンス作成は禁止
@@ -14,8 +15,16 @@ protected:
 public:
 	static T* GetInstance()
 	{
-		static T* instance;
+		if(instance != NULL)
+		{
+			delete instance;
+		}
+		
+		instance = new T();
+
 		return instance;
 	}
 };
 
+template<typename T>
+T* SingletonClass<T>::instance = NULL;

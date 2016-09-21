@@ -95,8 +95,10 @@
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="ListClass.h" />
     <ClInclude Include="PhysicsClass.h" />
+    <ClInclude Include="PlayerBulletManagerClass.h" />
     <ClInclude Include="PlayerClass.h" />
     <ClInclude Include="ShoulderPartsClass.h" />
+    <ClInclude Include="SingletonClass.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="TimerClass.h" />
   </ItemGroup>
@@ -114,6 +116,7 @@
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsClass.cpp" />
+    <ClCompile Include="PlayerBulletManagerClass.cpp" />
     <ClCompile Include="PlayerClass.cpp" />
     <ClCompile Include="ShoulderPartsClass.cpp" />
     <ClCompile Include="system.cpp" />

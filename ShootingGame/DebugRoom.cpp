@@ -5,6 +5,7 @@
 #include "ShoulderPartsClass.h"
 #include "BackPartsClass.h"
 #include "HipPartsClass.h"
+#include "PlayerBulletManagerClass.h"
 
 void DebugReshape(int x , int y)
 {
@@ -25,12 +26,14 @@ void DebugInit()
 	TestPlayer.Initialize(&POSITION(100 , 100) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 32) ,
 		&THREE_DIMENSION_VECTOR(32) , &TestShoulderL , &TestShoulderR , &TestBack , &TestHip);
 	TestShoulderL.SetShotStatus(1 , &VELOCITY(0 , 1) , 1 , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5));
+	cl_PlayerBulletManager = SingletonClass<PlayerBulletManagerClass>::GetInstance();
 }
 
 void DebugUpdate()
 {
 	TestPlayer.KeyBoard();
 	TestPlayer.Update();
+	cl_PlayerBulletManager->Update();
 	glutPostRedisplay();
 }
 

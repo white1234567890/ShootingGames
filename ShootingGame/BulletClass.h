@@ -3,7 +3,7 @@
 #include "ListClass.h"
 
 class BulletClass :
-	public BoxClass , public ListClass<BulletClass>
+	public BoxClass
 {
 public:
 
@@ -12,4 +12,3 @@ public:
 
 	void Render();
 };
-

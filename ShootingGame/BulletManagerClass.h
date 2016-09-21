@@ -1,12 +1,11 @@
 #pragma once
 #include "BulletClass.h"
-
-class ShoulderPartsClass;
+#include "ListClass.h"
 
 class BulletManagerClass
 {
 protected:
-	BulletClass m_BulletClass;
+	ListClass<BulletClass> m_Bullet;
 
 public:
 	BulletManagerClass(void);
@@ -16,6 +15,5 @@ public:
 	virtual bool Update() = 0;
 	void Render();
 
-	void CreateBullet();
-	void PushBackList();
+	virtual void CreateBullet() = 0;
 };

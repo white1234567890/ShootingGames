@@ -5,8 +5,7 @@
 
 #include "system.h"
 
-
-BulletClass::BulletClass(void) : ListClass<BulletClass>::ListClass()
+BulletClass::BulletClass(void)
 {
 }
 
