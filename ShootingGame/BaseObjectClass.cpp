@@ -8,9 +8,6 @@
 //////////////////////////////////////////////////////////////////////////////
 BaseObjectClass::BaseObjectClass(void)
 {
-	//m_Position = POSITION();
-	//m_Velocity = VELOCITY();
-	//m_Accelaration = ACCELARATION();
 	m_Angle = 0;
 	m_AngleVelocity = 0;
 }

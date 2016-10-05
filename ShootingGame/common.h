@@ -5,16 +5,17 @@
 
 //定数の宣言
 
-static const double PLAYER_SPEED = 50;	//プレイヤーの速さ
-static const int BASE_WINDOW_HEIGHT = 720;
-static const int BASE_WINDOW_WIDTH = 960;
-static const double PLAYER_SPEED_Y_ASPECT = PLAYER_SPEED / BASE_WINDOW_HEIGHT;	//プレイヤーの速さのy軸比
-static const double PLAYER_SPEED_X_ASPECT = PLAYER_SPEED / BASE_WINDOW_WIDTH;	//プレイヤーの速さのx軸比
+const int BASE_WINDOW_HEIGHT = 720;
+const int BASE_WINDOW_WIDTH = 960;
+const int PLAYER_SPEED_ASPECT = 10000000;
+
 
 //静的変数の宣言
 
 static int WINDOW_HEIGHT = BASE_WINDOW_HEIGHT;	//ウィンドウサイズ縦
 static int WINDOW_WIDTH = BASE_WINDOW_WIDTH;	//ウィンドウサイズ横
+static double PLAYER_SPEED_Y_ASPECT = 50;	//プレイヤーの速さのy軸比
+static double PLAYER_SPEED_X_ASPECT = 50;	//プレイヤーの速さのx軸比
 
 //列挙体の宣言
 enum GAME_MODE
@@ -162,27 +163,21 @@ typedef struct ACCELARATION
 }ACCELARATION;
 
 //可変長頂点(規定値4頂点）
-typedef struct VARIABLE_VERTEX
+typedef struct FOUR_VERTEX
 {
-	POSITION* m_VertexPosition;	//頂点の座標位置
+	POSITION m_VertexPosition[4];	//頂点の座標位置
 	unsigned int FactorSize;	//要素数
 
-	VARIABLE_VERTEX()
+	FOUR_VERTEX()
 	{
-		this->m_VertexPosition = new POSITION[4];
 		FactorSize = 4;
-	}
-
-	~VARIABLE_VERTEX()
-	{
-		delete[] this->m_VertexPosition;
 	}
 
 	unsigned int size()
 	{
 		return FactorSize;
 	}
-}VARIABLE_VERTEX;
+}FOUR_VERTEX;
 
 
 

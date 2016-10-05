@@ -4,6 +4,7 @@
 #include <gl\glut.h>
 
 #include "DebugRoom.h"
+#include "FileManagerClass.h"
 
 //変数の実体化
 GAME_MODE GameMode = GAME_INIT;
@@ -22,6 +23,8 @@ int main(int argc , char** argv)
 	//ウィンドウの作成
 	glutCreateWindow("Shooting Game");
 
+	cl_FileManager = SingletonClass<FileManagerClass>::GetInstance();
+
 #ifdef DEBUG
 	//初期化
 	DebugInit();
@@ -29,7 +32,7 @@ int main(int argc , char** argv)
 	//コールバック関数登録
 	glutDisplayFunc(DebugDisplay);
 	glutIgnoreKeyRepeat(GL_TRUE);
-	glutIdleFunc(DebugUpdate);
+	glutTimerFunc(100 , DebugUpdate , 0);
 	glutReshapeFunc(DebugReshape);
 
 #endif // DEBUG

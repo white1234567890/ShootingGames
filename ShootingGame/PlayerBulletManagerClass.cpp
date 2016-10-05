@@ -16,22 +16,23 @@ void PlayerBulletManagerClass::CreateBullet(POSITION* position , VELOCITY* veloc
 {
 	BulletClass NewBullet;
 	NewBullet.Initialize(position , velocity , accelaration , semi_long_vector , semi_short_vector);
-	m_Bullet.Add(NewBullet);
+	m_Bullet.PushBack(NewBullet);
 }
 
 bool PlayerBulletManagerClass::Update()
 {
 	if(m_Bullet.ToBegin())
 	{
-		while (true)
+		do
 		{
 			m_Bullet.GetCurrentNode().Update();
-			if(!m_Bullet.Next())
+			if(m_Bullet.GetCurrentNode().GetPosition().m_Vector.x < 0 || m_Bullet.GetCurrentNode().GetPosition().m_Vector.x > WINDOW_WIDTH ||
+				m_Bullet.GetCurrentNode().GetPosition().m_Vector.y < 0 || m_Bullet.GetCurrentNode().GetPosition().m_Vector.y > WINDOW_HEIGHT)
 			{
-				m_Bullet.GetCurrentNode().Update();
-				return true;
+				m_Bullet.RemoveCurrentNode();
 			}
-		}
+		} while (m_Bullet.Next());
+
 	}
 
 	return false;

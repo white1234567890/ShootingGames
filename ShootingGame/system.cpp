@@ -1,6 +1,7 @@
 #include "system.h"
 #include <time.h>
 #include <math.h>
+#include <random>
 
 //////////////////////////////////////////////////////////////////////////
 //概略:
@@ -89,8 +90,8 @@ bool CheckHitBoxandBox(BoxClass *box1 , BoxClass *box2)
 {
 	POSITION Box1Position = box1->GetPosition();	//box1の位置
 	POSITION Box2Position = box2->GetPosition();	//box2の位置
-	VARIABLE_VERTEX Box1Vertex;	//box1の頂点
-	VARIABLE_VERTEX Box2Vertex;	//box2の頂点
+	FOUR_VERTEX Box1Vertex;	//box1の頂点
+	FOUR_VERTEX Box2Vertex;	//box2の頂点
 	//for(int i = 0 ; i < 4 ; i++)
 	//{
 	//	Box1Vertex.m_VertexPosition.push_back(Box1Position);
@@ -245,11 +246,8 @@ bool CheckHitCircleandBox(CircleClass *circle1 , BoxClass *box1)
 		POSITION Circle1Position = circle1->GetPosition();
 
 		POSITION Box1Position = box1->GetPosition();
-		VARIABLE_VERTEX Box1Vertex;
-		//for(int i = 0 ; i < 4 ; i++)
-		//{
-		//	Box1Vertex.m_VertexPosition.push_back(Box1Position);
-		//}
+		FOUR_VERTEX Box1Vertex;
+
 		Box1Vertex = box1->GetVertex();
 		THREE_DIMENSION_VECTOR Box1SemiLongVector = box1->GetSemiLongVector();
 		THREE_DIMENSION_VECTOR Box1SemiShortVector = box1->GetSemiShortVector();

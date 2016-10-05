@@ -7,7 +7,7 @@ class BoxClass:
 protected:
 	//メンバ変数
 
-	VARIABLE_VERTEX m_Vertex;	//頂点
+	FOUR_VERTEX m_Vertex;	//頂点
 	double m_SemiLongAxis;	//半長軸の長さ
 	double m_SemiShortAxis;	//半短軸の長さ
 	THREE_DIMENSION_VECTOR m_SemiLongVector;	//半長軸ベクトル
@@ -32,7 +32,7 @@ public:
 	//戻り値:
 	//	m_Vertex:頂点座標
 	//////////////////////////////////////////////////////////////////////////////
-	VARIABLE_VERTEX GetVertex();
+	FOUR_VERTEX GetVertex();
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//概略:

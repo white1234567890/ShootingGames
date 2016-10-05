@@ -39,7 +39,7 @@ public:
 	ListClass(void)
 	{
 		//ダミーノード生成
-		m_Head = m_Current = new NODE<T>();
+		m_Head = new NODE<T>();
 	}
 
 	//デストラクタ
@@ -64,11 +64,23 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////
 	//概略:
+	//	ダミーか調べる
+	//	戻り値:
+	//	true:ダミーノード
+	//	false:ダミーノードじゃない
+	//////////////////////////////////////////////////////////////////////////////
+	//bool IsHead()
+	//{
+	//	return m_Current == m_Head;
+	//}
+
+	//////////////////////////////////////////////////////////////////////////////
+	//概略:
 	//	現在のノードを見る
 	//戻り値:
 	//	Value:現在のノードの値
 	//////////////////////////////////////////////////////////////////////////////
-	T GetCurrentNode()
+	T& GetCurrentNode()
 	{
 		return m_Current->Value;
 	}
@@ -218,11 +230,12 @@ public:
 			//次ノードの前ポインターに前ノードを入れる
 			m_Current->NextPointer->PrevPointer = m_Current->PrevPointer;
 
-			//現在のノードを削除する
+			//現在のノードを前ノードに移動
+			NODE<T>* Temp = m_Current->PrevPointer;
+
 			delete m_Current;
 
-			//現在のノードを前ノードに移動
-			m_Current = m_Current->PrevPointer;
+			m_Current = Temp;
 		}
 	}
 

@@ -23,17 +23,12 @@ bool BulletManagerClass::Update()
 
 void BulletManagerClass::Render()
 {
-	if(m_Bullet.ToBegin()) return;
-
-	while (true)
+	if(m_Bullet.ToBegin())
 	{
-		m_Bullet.GetCurrentNode().Render();
-
-		if(!m_Bullet.Next())
+		do
 		{
 			m_Bullet.GetCurrentNode().Render();
-			return;
-		}
+		} while (m_Bullet.Next());
 	}
 }
 

@@ -103,6 +103,7 @@ bool PlayerClass::InitializeChild()
 bool PlayerClass::UpdateChild()
 {
 	m_Pointer_to_Shoulder_L->Update(m_ShotFlag);
+	m_Pointer_to_Shoulder_R->Update(m_ShotFlag);
 	return true;
 }
 
@@ -133,7 +134,7 @@ void PlayerClass::SetPlayerSpeed(double x , double y)
 	m_PLAYER_Y_SPEED = y;
 }
 
-//////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 //概略:
 //	初期化
 //引数:
@@ -142,6 +143,10 @@ void PlayerClass::SetPlayerSpeed(double x , double y)
 //	*accelaration:加速度
 //	*semi_long_vector:半長軸ベクトル
 //	*semi_short_vector:半短軸ベクトル
+//	*shoulder_l:左肩パーツへのポインタ
+//	*shoulder_r:右肩パーツへのポインタ
+//	*back:背中パーツへのポインタ
+//	*hip:腰パーツへのポインタ
 //	flag:フラグ
 //戻り値:
 //	true:とりあえずtrueを返す
@@ -149,7 +154,7 @@ void PlayerClass::SetPlayerSpeed(double x , double y)
 bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag)
 {
 	m_Position = *position;
-	m_Velocity = *velocity;
+	m_Velocity.m_Vector = THREE_DIMENSION_VECTOR(0 , 0 , 0);
 	m_Accelaration = *accelaration;
 	m_SemiLongVector = *semi_long_vector;
 	m_SemiShortVector = *semi_short_vector;
@@ -164,7 +169,10 @@ bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARAT
 	m_Pointer_to_Back = back;
 	m_Pointer_to_Hip = hip;
 
-	SetPlayerSpeed(PLAYER_SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000 , PLAYER_SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / 100000);
+	PLAYER_SPEED_X_ASPECT = velocity->m_Vector.x;
+	PLAYER_SPEED_Y_ASPECT = velocity->m_Vector.y;
+
+	SetPlayerSpeed(PLAYER_SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / PLAYER_SPEED_ASPECT , PLAYER_SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / PLAYER_SPEED_ASPECT);
 
 	InitializeChild();
 

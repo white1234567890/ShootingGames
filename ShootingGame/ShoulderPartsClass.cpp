@@ -5,6 +5,8 @@
 
 #include "system.h"
 
+#include "PlayerBulletManagerClass.h"
+
 //ŽÀ‘Ì‰»
 ShoulderPartsClass TestShoulderL;
 ShoulderPartsClass TestShoulderR;
@@ -78,6 +80,11 @@ bool ShoulderPartsClass::Update(bool shot_flag)
 {
 	m_ShotPosition.m_Vector = m_Pointer_to_Parent->GetPosition().m_Vector + m_Position.m_Vector + RotateVector2(m_ForwardVector.x , m_ForwardVector.y , m_Angle) * m_BarrelRange;
 	m_ShotVelocity.m_Vector = RotateVector2(m_ForwardVector.x , m_ForwardVector.y , m_Angle) * m_ShotSpeed;
+
+	if(shot_flag)
+	{
+		cl_PlayerBulletManager->CreateBullet(&m_ShotPosition , &m_ShotVelocity , &m_ShotAccelaration , &m_ShotSemiLongVector , &m_ShotSemiShortVector);
+	}
 
 	return true;
 }
