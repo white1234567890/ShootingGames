@@ -15,7 +15,7 @@ protected:
 public:
 	static T* GetInstance()
 	{
-		if(instance != NULL)
+		if(instance != nullptr)
 		{
 			delete instance;
 		}
@@ -24,7 +24,19 @@ public:
 
 		return instance;
 	}
+
+	static T* Destroy()
+	{
+		if(instance != nullptr)
+		{
+			delete instance;
+		}
+
+		instance = nullptr;
+
+		return instance;
+	}
 };
 
 template<typename T>
-T* SingletonClass<T>::instance = NULL;
+T* SingletonClass<T>::instance = nullptr;

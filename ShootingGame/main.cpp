@@ -4,10 +4,7 @@
 #include <gl\glut.h>
 
 #include "DebugRoom.h"
-#include "FileManagerClass.h"
-
-//変数の実体化
-GAME_MODE GameMode = GAME_INIT;
+#include "SceneManagerClass.h"
 
 int main(int argc , char** argv)
 {
@@ -23,19 +20,24 @@ int main(int argc , char** argv)
 	//ウィンドウの作成
 	glutCreateWindow("Shooting Game");
 
-	cl_FileManager = SingletonClass<FileManagerClass>::GetInstance();
-
 #ifdef DEBUG
 	//初期化
-	DebugInit();
-
+	//DebugInit();
+	
 	//コールバック関数登録
-	glutDisplayFunc(DebugDisplay);
+	/*glutDisplayFunc(DebugDisplay);
 	glutIgnoreKeyRepeat(GL_TRUE);
 	glutTimerFunc(100 , DebugUpdate , 0);
-	glutReshapeFunc(DebugReshape);
+	glutReshapeFunc(DebugReshape);*/
 
 #endif // DEBUG
+	cl_SceneManager = SingletonClass<SceneManagerClass>::GetInstance();
+	cl_SceneManager->ChangeScene(SceneManagerClass::E_GAME_TITLE);
+
+	glutDisplayFunc(SceneManagerClass::Render);
+	glutIgnoreKeyRepeat(GL_TRUE);
+	glutTimerFunc(100 , SceneManagerClass::Update , 0);
+	glutReshapeFunc(SceneManagerClass::Reshape);	
 
 	//カラーバッファの初期値
 	glClearColor(0 , 0 , 0 , 1.f);

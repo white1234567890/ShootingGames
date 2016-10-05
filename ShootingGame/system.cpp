@@ -490,13 +490,6 @@ double InterSectionTime(POSITION* Position_of_Object1 , VELOCITY* Velocity_of_Ob
 	return t;
 }
 
-template<class T>
-void ReleaseVector(std::vector<T> &obj)
-{
-	std::vector<T> NullVector;
-	obj.swap(NullVector);
-}
-
 double Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(double value)
 {
 	return 2.0 * value / WINDOW_WIDTH - 1.0;

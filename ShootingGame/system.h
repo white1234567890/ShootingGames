@@ -135,8 +135,12 @@ double GetVector2Angle(double x , double y);
 
 double InterSectionTime(POSITION* Position_of_Object1 , VELOCITY* Velocity_of_Object1 , POSITION* Position_of_Object2 , VELOCITY* Velocity_of_Object2);
 
-template<class T>
-void ReleaseVector(std::vector<T> &obj);
+template<typename T>
+void ReleaseVector(std::vector<T> &obj)
+{
+	std::vector<T> NullVector;
+	obj.swap(NullVector);
+}
 
 double Convert_to_RelativeCoordinates_from_AbusoluteCoordinatesX(double value);
 

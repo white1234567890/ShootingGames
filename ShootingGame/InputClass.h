@@ -1,8 +1,10 @@
 #pragma once
+#include "common.h"
+
 class InputClass
 {
 protected:
-	enum NomalKeyNumber
+	enum NOMAL_KEY_NUMBER
 	{
 		E_UP_ARROW_KEY = 1,
 		E_LEFT_ARROW_KEY = 1 << 1,
@@ -14,12 +16,22 @@ protected:
 		E_SHIFT_KEY = 1 << 7,
 	};
 
+	unsigned int m_OldKeyFlag;
+	unsigned int m_NowKeyFlag;
 	unsigned int m_InputKeyFlag;
 
 public:
+	enum INPUT_MODE
+	{
+		E_PROHIBIT_PRESS_TWICE,
+		E_ALLOW_PLESS_TWICE
+	}final;
+
 	InputClass(void);
 	~InputClass(void);
 
 	void KeyBoard();
+
+	unsigned int InputKey(INPUT_MODE input_mode);
 };
 

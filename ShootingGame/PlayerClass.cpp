@@ -5,6 +5,10 @@
 #include <gl\glew.h>
 #include <gl\glut.h>
 
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 #include "system.h"
 #include "ShoulderPartsClass.h"
 #include "BackPartsClass.h"
@@ -28,6 +32,59 @@ PlayerClass::~PlayerClass(void)
 //////////////////////////////////////////////////////////////////////////////
 //privateä÷êî
 //////////////////////////////////////////////////////////////////////////////
+
+bool PlayerClass::LoadPlayerStatus(std::string file_name)
+{
+	
+	std::ifstream ifs(file_name);
+
+	if(ifs.fail()) return false;
+
+	std::string PlayerStatus;
+	
+	for(int i = 0 ; i < 2 ; i++)
+	{
+		std::getline(ifs , PlayerStatus);
+	}
+
+	std::string token;
+	std::istringstream stream(PlayerStatus);
+	std::vector<double> TempVector;
+	
+	while(getline(stream , token , ','))
+	{
+		TempVector.push_back(std::stod(token));
+	}
+
+	PLAYER_SPEED_X_ASPECT = TempVector[0];
+	PLAYER_SPEED_Y_ASPECT = TempVector[1];
+
+	if(TempVector[2] >= TempVector[3])
+	{
+		m_SemiLongVector = THREE_DIMENSION_VECTOR(TempVector[2]);
+		m_SemiShortVector = THREE_DIMENSION_VECTOR(0 , TempVector[3]);
+	}
+	else
+	{
+		m_SemiLongVector = THREE_DIMENSION_VECTOR(0 , TempVector[3]);
+		m_SemiShortVector = THREE_DIMENSION_VECTOR(TempVector[2]);
+	}
+
+	if(TempVector[6] >= TempVector[7])
+	{
+		m_Pointer_to_Shoulder_L->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(TempVector[6] / 2) , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2));
+		m_Pointer_to_Shoulder_R->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(TempVector[6] / 2) , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2));
+	}
+	else
+	{
+		m_Pointer_to_Shoulder_L->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2) , &THREE_DIMENSION_VECTOR(TempVector[6] / 2));
+		m_Pointer_to_Shoulder_R->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2) , &THREE_DIMENSION_VECTOR(TempVector[6] / 2));
+	}
+
+	ReleaseVector(TempVector);
+
+	return true;
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //äTó™:
@@ -151,13 +208,11 @@ void PlayerClass::SetPlayerSpeed(double x , double y)
 //ñﬂÇËíl:
 //	true:Ç∆ÇËÇ†Ç¶Ç∏trueÇï‘Ç∑
 //////////////////////////////////////////////////////////////////////////////
-bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag)
+bool PlayerClass::Initialize(std::string file_name , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag)
 {
-	m_Position = *position;
-	m_Velocity.m_Vector = THREE_DIMENSION_VECTOR(0 , 0 , 0);
-	m_Accelaration = *accelaration;
-	m_SemiLongVector = *semi_long_vector;
-	m_SemiShortVector = *semi_short_vector;
+	m_Position = POSITION(WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 10);
+	m_Velocity.m_Vector = THREE_DIMENSION_VECTOR();
+	m_Accelaration = ACCELARATION();
 
 	m_SemiLongAxis = m_SemiLongVector.Magnitude();
 	m_SemiShortAxis = m_SemiShortVector.Magnitude();
@@ -169,8 +224,7 @@ bool PlayerClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARAT
 	m_Pointer_to_Back = back;
 	m_Pointer_to_Hip = hip;
 
-	PLAYER_SPEED_X_ASPECT = velocity->m_Vector.x;
-	PLAYER_SPEED_Y_ASPECT = velocity->m_Vector.y;
+	LoadPlayerStatus(file_name);
 
 	SetPlayerSpeed(PLAYER_SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / PLAYER_SPEED_ASPECT , PLAYER_SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / PLAYER_SPEED_ASPECT);
 

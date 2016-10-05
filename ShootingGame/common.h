@@ -17,14 +17,6 @@ static int WINDOW_WIDTH = BASE_WINDOW_WIDTH;	//ウィンドウサイズ横
 static double PLAYER_SPEED_Y_ASPECT = 50;	//プレイヤーの速さのy軸比
 static double PLAYER_SPEED_X_ASPECT = 50;	//プレイヤーの速さのx軸比
 
-//列挙体の宣言
-enum GAME_MODE
-{
-	GAME_INIT,	//ゲーム初期化
-	GAME_PLAY,	//ゲームメイン
-	END = 99		//終了
-};
-
 //3次元ベクトル
 typedef struct THREE_DIMENSION_VECTOR
 {
@@ -178,8 +170,3 @@ typedef struct FOUR_VERTEX
 		return FactorSize;
 	}
 }FOUR_VERTEX;
-
-
-
-//変数の宣言
-extern GAME_MODE GameMode;		//ゲームモード指定用変数

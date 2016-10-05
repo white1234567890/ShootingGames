@@ -1,6 +1,7 @@
 #pragma once
 #include "BoxClass.h"
 #include "InputClass.h"
+#include <string>
 
 class ShoulderPartsClass;
 class BackPartsClass;
@@ -18,6 +19,8 @@ private:
 	double m_PLAYER_Y_SPEED;
 
 	bool m_ShotFlag;
+
+	bool LoadPlayerStatus(std::string file_name);
 
 	void CheckInput();
 	void PlayerCanNotOverScreen();
@@ -58,7 +61,7 @@ public:
 	//–ß‚è’l:
 	//	true:‚Æ‚è‚ ‚¦‚¸true‚ð•Ô‚·
 	//////////////////////////////////////////////////////////////////////////////
-	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag = true);
+	bool Initialize(std::string file_name , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag = true);
 
 	bool Update();
 
