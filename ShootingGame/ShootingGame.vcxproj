@@ -89,7 +89,8 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="DebugRoom.h" />
     <ClInclude Include="DebugSwitch.h" />
-    <ClInclude Include="GameMain.h" />
+    <ClInclude Include="EnemyClass.h" />
+    <ClInclude Include="EnemyManagerClass.h" />
     <ClInclude Include="GraphicClass.h" />
     <ClInclude Include="HipPartsClass.h" />
     <ClInclude Include="InputClass.h" />
@@ -97,12 +98,15 @@
     <ClInclude Include="PhysicsClass.h" />
     <ClInclude Include="PlayerBulletManagerClass.h" />
     <ClInclude Include="PlayerClass.h" />
+    <ClInclude Include="PlayerManagerClass.h" />
     <ClInclude Include="SceneClass.h" />
     <ClInclude Include="SceneManagerClass.h" />
     <ClInclude Include="ShoulderPartsClass.h" />
     <ClInclude Include="SingletonClass.h" />
+    <ClInclude Include="StatusClass.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="TimerClass.h" />
+    <ClInclude Include="WaveManagerClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackPartsClass.cpp" />
@@ -112,7 +116,8 @@
     <ClCompile Include="BulletManagerClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
     <ClCompile Include="DebugRoom.cpp" />
-    <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="EnemyClass.cpp" />
+    <ClCompile Include="EnemyManagerClass.cpp" />
     <ClCompile Include="GraphicClass.cpp" />
     <ClCompile Include="HipPartsClass.cpp" />
     <ClCompile Include="InputClass.cpp" />
@@ -120,11 +125,14 @@
     <ClCompile Include="PhysicsClass.cpp" />
     <ClCompile Include="PlayerBulletManagerClass.cpp" />
     <ClCompile Include="PlayerClass.cpp" />
+    <ClCompile Include="PlayerManagerClass.cpp" />
     <ClCompile Include="SceneClass.cpp" />
     <ClCompile Include="SceneManagerClass.cpp" />
     <ClCompile Include="ShoulderPartsClass.cpp" />
+    <ClCompile Include="StatusClass.cpp" />
     <ClCompile Include="system.cpp" />
     <ClCompile Include="TimerClass.cpp" />
+    <ClCompile Include="WaveManagerClass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

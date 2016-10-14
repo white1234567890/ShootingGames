@@ -14,9 +14,6 @@
 #include "BackPartsClass.h"
 #include "HipPartsClass.h"
 
-//実体化
-PlayerClass TestPlayer;
-
 //コンストラクタ
 PlayerClass::PlayerClass(void)
 {
@@ -56,8 +53,8 @@ bool PlayerClass::LoadPlayerStatus(std::string file_name)
 		TempVector.push_back(std::stod(token));
 	}
 
-	PLAYER_SPEED_X_ASPECT = TempVector[0];
-	PLAYER_SPEED_Y_ASPECT = TempVector[1];
+	SPEED_X_ASPECT = TempVector[0];
+	SPEED_Y_ASPECT = TempVector[1];
 
 	if(TempVector[2] >= TempVector[3])
 	{
@@ -226,7 +223,7 @@ bool PlayerClass::Initialize(std::string file_name , ShoulderPartsClass* shoulde
 
 	LoadPlayerStatus(file_name);
 
-	SetPlayerSpeed(PLAYER_SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / PLAYER_SPEED_ASPECT , PLAYER_SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / PLAYER_SPEED_ASPECT);
+	SetPlayerSpeed(SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / SPEED_ASPECT , SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / SPEED_ASPECT);
 
 	InitializeChild();
 

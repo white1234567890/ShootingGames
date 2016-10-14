@@ -1,8 +1,6 @@
 #pragma once
-#include "PlayerClass.h"
-#include "ShoulderPartsClass.h"
-#include "BackPartsClass.h"
-#include "HipPartsClass.h"
+#include "PlayerManagerClass.h"
+#include "EnemyManagerClass.h"
 #include "PlayerBulletManagerClass.h"
 
 class BaseSceneClass
@@ -14,6 +12,7 @@ public:
 	virtual ~BaseSceneClass(void);
 
 	//メンバ関数
+	virtual void Reshape() = 0;	//画面の再定義
 	virtual bool Initiarize() = 0;	//シーンの初期化
 	virtual bool Update() = 0;	//シーンの更新
 	virtual void Render() = 0;	//シーンの描画
@@ -30,6 +29,7 @@ public:
 	~SceneTitleClass();
 
 	//メンバ関数
+	void Reshape();	//画面の再定義
 	bool Initiarize();	//シーンの初期化
 	bool Update();	//シーンの更新
 	void Render();	//シーンの描画
@@ -39,13 +39,7 @@ class SceneMainClass :
 	public BaseSceneClass
 {
 private:
-	PlayerClass m_Player;
-	ShoulderPartsClass m_Shoulder_L;
-	ShoulderPartsClass m_Shoulder_R;
-	BackPartsClass m_Back;
-	HipPartsClass m_Hip;
 
-	
 
 public:
 	//コンストラクタ
@@ -54,6 +48,7 @@ public:
 	~SceneMainClass ();
 
 	//メンバ関数
+	void Reshape();	//画面の再定義
 	bool Initiarize();	//シーンの初期化
 	bool Update();	//シーンの更新
 	void Render();	//シーンの描画

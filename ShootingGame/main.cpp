@@ -22,22 +22,20 @@ int main(int argc , char** argv)
 
 #ifdef DEBUG
 	//初期化
-	//DebugInit();
+	DebugInit();
 	
 	//コールバック関数登録
-	/*glutDisplayFunc(DebugDisplay);
-	glutIgnoreKeyRepeat(GL_TRUE);
-	glutTimerFunc(100 , DebugUpdate , 0);
-	glutReshapeFunc(DebugReshape);*/
+	glutDisplayFunc(DebugDisplay);
+	glutTimerFunc(16 , DebugUpdate , 0);
+	glutReshapeFunc(DebugReshape);
 
 #endif // DEBUG
-	cl_SceneManager = SingletonClass<SceneManagerClass>::GetInstance();
-	cl_SceneManager->ChangeScene(SceneManagerClass::E_GAME_TITLE);
+	//cl_SceneManager = SingletonClass<SceneManagerClass>::GetInstance();
+	//cl_SceneManager->ChangeScene(SceneManagerClass::E_GAME_TITLE);
 
-	glutDisplayFunc(SceneManagerClass::Render);
-	glutIgnoreKeyRepeat(GL_TRUE);
-	glutTimerFunc(100 , SceneManagerClass::Update , 0);
-	glutReshapeFunc(SceneManagerClass::Reshape);	
+	//glutDisplayFunc(SceneManagerClass::Render);
+	//glutTimerFunc(16 , SceneManagerClass::Update , 0);
+	//glutReshapeFunc(SceneManagerClass::Reshape);	
 
 	//カラーバッファの初期値
 	glClearColor(0 , 0 , 0 , 1.f);

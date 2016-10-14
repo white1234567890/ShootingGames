@@ -7,15 +7,15 @@
 
 const int BASE_WINDOW_HEIGHT = 720;
 const int BASE_WINDOW_WIDTH = 960;
-const int PLAYER_SPEED_ASPECT = 10000000;
+const int SPEED_ASPECT = 10000000;
 
 
 //静的変数の宣言
 
 static int WINDOW_HEIGHT = BASE_WINDOW_HEIGHT;	//ウィンドウサイズ縦
 static int WINDOW_WIDTH = BASE_WINDOW_WIDTH;	//ウィンドウサイズ横
-static double PLAYER_SPEED_Y_ASPECT = 50;	//プレイヤーの速さのy軸比
-static double PLAYER_SPEED_X_ASPECT = 50;	//プレイヤーの速さのx軸比
+static double SPEED_Y_ASPECT = 50;	//プレイヤーの速さのy軸比
+static double SPEED_X_ASPECT = 50;	//プレイヤーの速さのx軸比
 
 //3次元ベクトル
 typedef struct THREE_DIMENSION_VECTOR

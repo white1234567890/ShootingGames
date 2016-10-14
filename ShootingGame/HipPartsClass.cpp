@@ -4,9 +4,6 @@
 #include <gl\glut.h>
 
 #include "system.h"
-
-HipPartsClass TestHip;
-
 HipPartsClass::HipPartsClass(void)
 {
 }

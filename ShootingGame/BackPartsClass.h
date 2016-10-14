@@ -16,5 +16,3 @@ public:
 	bool Initialize(POSITION* local_position , VELOCITY* local_velocity , ACCELARATION* local_accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , PlayerClass* player , bool flag = true);
 	void Render(POSITION* world_position);
 };
-
-extern BackPartsClass TestBack;

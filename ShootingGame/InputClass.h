@@ -13,7 +13,8 @@ protected:
 		E_Z_KEY = 1 << 4,
 		E_X_KEY = 1 << 5,
 		E_ESC_KEY = 1 << 6,
-		E_SHIFT_KEY = 1 << 7,
+		E_RETURN_KEY = 1 << 7,
+		E_SHIFT_KEY = 1 << 8,
 	};
 
 	unsigned int m_OldKeyFlag;

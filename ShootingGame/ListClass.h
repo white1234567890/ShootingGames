@@ -175,7 +175,7 @@ public:
 	//引数:
 	//	value:追加する値
 	//////////////////////////////////////////////////////////////////////////////
-	void Add(T value)
+	void Add(T &value)
 	{
 		//追加するノード
 		NODE<T> *node = new NODE<T>(value , m_Current , m_Current->NextPointer);
@@ -193,7 +193,7 @@ public:
 	//引数:
 	//	value:追加する値
 	//////////////////////////////////////////////////////////////////////////////
-	void PushFront(T value)
+	void PushFront(T &value)
 	{
 		//ダミーノードまで移動する
 		m_Current = m_Head;
@@ -207,7 +207,7 @@ public:
 	//引数:
 	//	value:追加する値
 	//////////////////////////////////////////////////////////////////////////////
-	void PushBack(T value)
+	void PushBack(T &value)
 	{
 		//ダミーノードの前まで移動する
 		m_Current = m_Head->PrevPointer;

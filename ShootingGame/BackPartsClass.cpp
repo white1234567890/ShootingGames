@@ -5,9 +5,6 @@
 
 #include "system.h"
 
-//ŽÀ‘Ì‰»
-BackPartsClass TestBack;
-
 BackPartsClass::BackPartsClass(void)
 {
 	m_Pointer_to_Parent = NULL;

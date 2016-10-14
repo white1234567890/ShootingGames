@@ -13,7 +13,7 @@ protected:
 	THREE_DIMENSION_VECTOR m_SemiLongVector;	//半長軸ベクトル
 	THREE_DIMENSION_VECTOR m_SemiShortVector;	//半短軸ベクトル
 	
-	virtual bool Initialize() final;
+	virtual bool Initialize();
 
 	void RotateObject(double angle);
 

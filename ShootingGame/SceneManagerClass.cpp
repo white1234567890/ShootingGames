@@ -29,7 +29,7 @@ SceneManagerClass::~SceneManagerClass(void)
 //public関数
 //////////////////////////////////////////////////////////////////////////////
 
-void SceneManagerClass::ChangeScene(_SCENE scene)
+bool SceneManagerClass::ChangeScene(_SCENE scene)
 {
 	static SceneTitleClass SceneTitle;
 	static SceneMainClass SceneMain;
@@ -45,13 +45,16 @@ void SceneManagerClass::ChangeScene(_SCENE scene)
 		break;
 	}
 
-	Initiarize();
+	if(!Initiarize()) return false;
+	return true;
 }
 
 void SceneManagerClass::Reshape(int x , int y)
 {
 	WINDOW_WIDTH = x;
 	WINDOW_HEIGHT = y;
+
+	m_Scene->Reshape();
 
 	//ビューポート設定
 	glViewport(0 , 0 , x , y);

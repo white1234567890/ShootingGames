@@ -25,6 +25,14 @@ BaseSceneClass::~BaseSceneClass(void)
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
+//	描画再定義
+//////////////////////////////////////////////////////////////////////////////
+void BaseSceneClass::Reshape()
+{
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
 //	初期化(純粋仮想関数)
 //////////////////////////////////////////////////////////////////////////////
 bool BaseSceneClass::Initiarize()
@@ -69,6 +77,14 @@ SceneTitleClass::~SceneTitleClass()
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
+//	ウィンドウサイズが変化したときに合わせる
+//////////////////////////////////////////////////////////////////////////////
+void SceneTitleClass::Reshape()
+{
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
 //	タイトルシーンを初期化する
 //戻り値:
 //	true:初期化成功
@@ -89,7 +105,7 @@ bool SceneTitleClass::Update()
 {
 	if(InputKey(InputClass::E_PROHIBIT_PRESS_TWICE) & InputClass::E_Z_KEY)
 	{
-		SceneManagerClass::ChangeScene(SceneManagerClass::E_GAME_MAIN);
+		if(!SceneManagerClass::ChangeScene(SceneManagerClass::E_GAME_MAIN)) return false;
 	}
 	return true;
 }
@@ -127,6 +143,15 @@ SceneMainClass::~SceneMainClass ()
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
+//	ウィンドウサイズが変化したときに合わせる
+//////////////////////////////////////////////////////////////////////////////
+void SceneMainClass::Reshape()
+{
+	cl_PlayerManager->WhenReshaped();
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//概略:
 //	メインシーンを初期化する
 //戻り値:
 //	true:初期化成功
@@ -134,7 +159,10 @@ SceneMainClass::~SceneMainClass ()
 //////////////////////////////////////////////////////////////////////////////
 bool SceneMainClass::Initiarize()
 {
-	m_Player.Initialize("data/playerstatus.csv" , &m_Shoulder_L , &m_Shoulder_R , &m_Back , &m_Hip);
+	cl_PlayerManager = SingletonClass<PlayerManagerClass>::GetInstance();
+	cl_PlayerManager->Initialize();
+	cl_EnemyManager = SingletonClass<EnemyManagerClass>::GetInstance();
+	cl_EnemyManager->Initiarize();
 	cl_PlayerBulletManager = SingletonClass<PlayerBulletManagerClass>::GetInstance();
 	return true;
 }
@@ -147,6 +175,9 @@ bool SceneMainClass::Initiarize()
 //////////////////////////////////////////////////////////////////////////////
 bool SceneMainClass::Update()
 {
+	cl_PlayerManager->Update();
+	cl_EnemyManager->Update();
+	cl_PlayerBulletManager->Update();
 	return true;
 }
 
@@ -158,6 +189,11 @@ void SceneMainClass::Render()
 {
 	//カラーバッファを初期化
 	glClear(GL_COLOR_BUFFER_BIT);
+	
+	//描画
+	cl_PlayerManager->Render();
+	cl_EnemyManager->Render();
+	cl_PlayerBulletManager->Render();
 
 	//命令の実行
 	glutSwapBuffers();

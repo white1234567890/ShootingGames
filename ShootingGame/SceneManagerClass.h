@@ -23,7 +23,7 @@ public:
 		E_GAME_MAIN,	//メインシーン
 	};
 
-	static void ChangeScene(_SCENE scene);	//シーンの遷移
+	static bool ChangeScene(_SCENE scene);	//シーンの遷移
 	static void Reshape(int x , int y);
 	static bool Initiarize();	//シーンの初期化
 	static void Update(int time);	//シーンの更新

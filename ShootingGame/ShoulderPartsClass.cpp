@@ -6,11 +6,6 @@
 #include "system.h"
 
 #include "PlayerBulletManagerClass.h"
-
-//ŽÀ‘Ì‰»
-ShoulderPartsClass TestShoulderL;
-ShoulderPartsClass TestShoulderR;
-
 ShoulderPartsClass::ShoulderPartsClass(void)
 {
 	m_Pointer_to_Parent = NULL;

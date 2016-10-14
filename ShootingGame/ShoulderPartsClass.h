@@ -38,6 +38,3 @@ public:
 	bool Update(bool shot_flag);
 	void Render(POSITION* world_position);
 };
-
-extern ShoulderPartsClass TestShoulderL;
-extern ShoulderPartsClass TestShoulderR;
