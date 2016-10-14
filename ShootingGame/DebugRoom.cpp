@@ -4,6 +4,11 @@
 #include "PlayerManagerClass.h"
 #include "PlayerBulletManagerClass.h"
 #include "WaveManagerClass.h"
+#include "TimerClass.h"
+
+#include <iostream>
+
+TimerClass timer;
 
 void DebugReshape(int x , int y)
 {
@@ -36,6 +41,7 @@ void DebugUpdate(int time)
 	cl_PlayerManager->Update();
 	cl_EnemyManager->Update();
 	cl_PlayerBulletManager->Update();
+	std::cout << timer.TimeCount() / 60 << std::endl;
 	glutPostRedisplay();
 	glutTimerFunc(16 , DebugUpdate , 0);
 }

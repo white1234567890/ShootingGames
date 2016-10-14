@@ -13,6 +13,7 @@ protected:
 	POSITION m_Position;	//中心座標
 	VELOCITY m_Velocity;	//速度
 	ACCELARATION m_Accelaration;	//加速度
+	double m_Speed;	//速さ
 	double m_Angle;	//傾き
 	double m_AngleVelocity;	//角速度
 

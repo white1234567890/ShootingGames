@@ -38,6 +38,8 @@ public:
 		E_STAGE6
 	};
 
+	std::string GetNowStage();
+
 	bool Initiarize(int now_stage);
 	bool Update(EnemyManagerClass *enemy_manager);
 };

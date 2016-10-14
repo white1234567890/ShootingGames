@@ -26,6 +26,7 @@ WaveManagerClass::~WaveManagerClass(void)
 bool WaveManagerClass::CreateWave(EnemyManagerClass *enemy_manager , std::string now_stage , std::string now_wave)
 {
 	LoadWaveData(enemy_manager , now_stage , now_wave);
+	m_WaveCounter++;
 	return true;
 }
 
@@ -60,7 +61,7 @@ bool WaveManagerClass::LoadWaveData(EnemyManagerClass *enemy_manager , std::stri
 			TempVector.push_back(std::stod(token));
 		}
 
-		enemy_manager->CreateEnemy(TempVector[0] , &POSITION(TempVector[1] * WINDOW_WIDTH , TempVector[2] * WINDOW_HEIGHT));
+		enemy_manager->CreateEnemy(this , (int)TempVector[0] , &POSITION(TempVector[1] * WINDOW_WIDTH , TempVector[2] * WINDOW_HEIGHT));
 
 		TempVector.clear();
 	}
@@ -98,21 +99,29 @@ bool WaveManagerClass::LoadMaxWave()
 //////////////////////////////////////////////////////////////////////////////
 //publicä÷êî
 //////////////////////////////////////////////////////////////////////////////
+
+std::string WaveManagerClass::GetNowStage()
+{
+	return m_NowStage;
+}
+
 bool WaveManagerClass::Initiarize(int now_stage)
 {
 	m_NowStage = "stage" + std::to_string(now_stage);
-	m_WaveCounter = 1;
-	m_NowWave = "wave" + std::to_string(m_WaveCounter);
+	m_WaveCounter = 0;
 	if(!LoadMaxWave()) return false;
 	return true;
 }
 
 bool WaveManagerClass::Update(EnemyManagerClass *enemy_manager)
 {
-	if(TimeCount() )
+	if(GetCounter() == 1800 * m_WaveCounter && m_WaveCounter < m_MaxWave)
 	{
+		m_NowWave = "wave" + std::to_string(m_WaveCounter + 1);
 		CreateWave(enemy_manager , m_NowStage , m_NowWave);
 	}
+
+	TimeCount();
 
 	return true;
 }

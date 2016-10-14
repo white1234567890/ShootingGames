@@ -3,6 +3,9 @@
 #include "ListClass.h"
 #include "EnemyClass.h"
 
+//使用クラス宣言
+class WaveManagerClass;
+
 class EnemyManagerClass :
 	public SingletonClass<EnemyManagerClass>
 {
@@ -22,7 +25,7 @@ public:
 		E_ENEMY_TYPE_2
 	};
 
-	bool CreateEnemy(int enemy_type , POSITION* position);
+	bool CreateEnemy(WaveManagerClass *wave_manager , int enemy_type , POSITION* position);
 
 	bool Initiarize();
 	bool Update();

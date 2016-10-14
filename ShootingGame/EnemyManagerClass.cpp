@@ -14,10 +14,10 @@ EnemyManagerClass::~EnemyManagerClass(void)
 {
 }
 
-bool EnemyManagerClass::CreateEnemy(int enemy_type , POSITION* position)
+bool EnemyManagerClass::CreateEnemy(WaveManagerClass *wave_manager , int enemy_type , POSITION* position)
 {
 	EnemyClass NewEnemy;
-	NewEnemy.Initiarize(enemy_type , position);
+	NewEnemy.Initiarize(wave_manager , enemy_type , position);
 	m_Enemy.PushBack(NewEnemy);
 	return true;
 }

@@ -7,6 +7,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "WaveManagerClass.h"
+
 //////////////////////////////////////////////////////////////////////////////
 //EnemyStatePatternClass
 //////////////////////////////////////////////////////////////////////////////
@@ -23,7 +25,7 @@ EnemyStatePatternClass::~EnemyStatePatternClass()
 //protectedŠÖ”
 //////////////////////////////////////////////////////////////////////////////
 
-bool EnemyStatePatternClass::LoadEnemyStatus(POSITION* position)
+bool EnemyStatePatternClass::LoadEnemyStatus(WaveManagerClass *wave_manager , POSITION* position)
 {
 	return true;
 }
@@ -42,7 +44,7 @@ void EnemyStatePatternClass::ShotBullet()
 //////////////////////////////////////////////////////////////////////////////
 
 
-bool EnemyStatePatternClass::Initialize(POSITION* position)
+bool EnemyStatePatternClass::Initialize(WaveManagerClass *wave_manager , POSITION* position)
 {
 	return true;
 }
@@ -72,9 +74,11 @@ EnemyType1Class::~EnemyType1Class()
 //privateŠÖ”
 //////////////////////////////////////////////////////////////////////////////
 
-bool EnemyType1Class::LoadEnemyStatus(POSITION* position)
+bool EnemyType1Class::LoadEnemyStatus(WaveManagerClass *wave_manager , POSITION* position)
 {
-	std::ifstream ifs("data/enemy/enemytype1.csv");
+	std::string FileName = "data/" + wave_manager->GetNowStage() + "/enemy/enemytype1.csv";
+
+	std::ifstream ifs(FileName);
 
 	if(ifs.fail()) return false;
 	
@@ -96,22 +100,68 @@ bool EnemyType1Class::LoadEnemyStatus(POSITION* position)
 
 	if(TempVector[4] >= TempVector[5])
 	{
-		BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
-			&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		if(position->m_Vector.x < WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		}
+		else if(position->m_Vector.x > WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(-TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		}
+		else
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION() , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		}
 	}
 	else
 	{
-		BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
-			&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		if(position->m_Vector.x < WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		}
+		else if(position->m_Vector.x > WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(-TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		}
+		else
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		}
 	}
+
+	m_Speed = TempVector[6];
+
+	ReleaseVector(TempVector);
 
 	return true;
 }
 
 void EnemyType1Class::MoveObject()
 {
-	m_Position.m_Vector += m_Velocity.m_Vector;
-	AccelObject();
+	if(m_Position.m_Vector.y < 0.8 * WINDOW_HEIGHT)
+	{
+		if(TimeCount() > 60)
+		{
+			m_Position.m_Vector += m_Velocity.m_Vector;
+
+			AccelObject();
+
+			THREE_DIMENSION_VECTOR TempVelocity = GetVelocity().m_Vector;
+			TempVelocity.Nomalize();
+			SetVelocity(&(TempVelocity * m_Speed));
+		}
+	}
+	else
+	{
+		m_Position.m_Vector += m_Velocity.m_Vector;
+	}
+
 }
 
 void EnemyType1Class::ShotBullet()
@@ -123,9 +173,9 @@ void EnemyType1Class::ShotBullet()
 //////////////////////////////////////////////////////////////////////////////
 
 
-bool EnemyType1Class::Initialize(POSITION* position)
+bool EnemyType1Class::Initialize(WaveManagerClass *wave_manager , POSITION* position)
 {
-	LoadEnemyStatus(position);
+	LoadEnemyStatus(wave_manager , position);
 	return true;
 }
 
@@ -170,9 +220,11 @@ EnemyType2Class::~EnemyType2Class()
 //privateŠÖ”
 //////////////////////////////////////////////////////////////////////////////
 
-bool EnemyType2Class::LoadEnemyStatus(POSITION* position)
+bool EnemyType2Class::LoadEnemyStatus(WaveManagerClass *wave_manager , POSITION* position)
 {
-	std::ifstream ifs("data/enemy/enemytype2.csv");
+	std::string FileName = "data/" + wave_manager->GetNowStage() + "/enemy/enemytype2.csv";
+
+	std::ifstream ifs(FileName);
 
 	if(ifs.fail()) return false;
 	
@@ -194,22 +246,67 @@ bool EnemyType2Class::LoadEnemyStatus(POSITION* position)
 
 if(TempVector[4] >= TempVector[5])
 	{
-		BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
-			&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		if(position->m_Vector.x < WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		}
+		else if(position->m_Vector.x > WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(-TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		}
+		else
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION() , &THREE_DIMENSION_VECTOR(TempVector[4]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]));
+		}
 	}
 	else
 	{
-		BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
-			&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		if(position->m_Vector.x < WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		}
+		else if(position->m_Vector.x > WINDOW_WIDTH / 2)
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION(-TempVector[2] , TempVector[3]) , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		}
+		else
+		{
+			BoxClass::Initialize(position , &VELOCITY(TempVector[0] , TempVector[1]) ,
+				&ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , TempVector[5]) , &THREE_DIMENSION_VECTOR(TempVector[4]));
+		}
 	}
+
+	m_Speed = TempVector[6];
+
+	ReleaseVector(TempVector);
 
 	return true;
 }
 
 void EnemyType2Class::MoveObject()
 {
-	m_Position.m_Vector += m_Velocity.m_Vector;
-	AccelObject();
+	if(m_Position.m_Vector.y < 0.8 * WINDOW_HEIGHT)
+	{
+		if(TimeCount() > 60)
+		{
+			m_Position.m_Vector += m_Velocity.m_Vector;
+
+			AccelObject();
+
+			THREE_DIMENSION_VECTOR TempVelocity = GetVelocity().m_Vector;
+			TempVelocity.Nomalize();
+			SetVelocity(&(TempVelocity * m_Speed));
+		}
+	}
+	else
+	{
+		m_Position.m_Vector += m_Velocity.m_Vector;
+	}
 }
 
 void EnemyType2Class::ShotBullet()
@@ -221,9 +318,9 @@ void EnemyType2Class::ShotBullet()
 //publicŠÖ”
 //////////////////////////////////////////////////////////////////////////////
 
-bool EnemyType2Class::Initialize(POSITION* position)
+bool EnemyType2Class::Initialize(WaveManagerClass *wave_manager , POSITION* position)
 {
-	LoadEnemyStatus(position);
+	LoadEnemyStatus(wave_manager , position);
 	return true;
 }
 
@@ -277,13 +374,14 @@ void EnemyClass::Release()
 	{
 		delete m_EnemyType;
 	}
+
 	m_EnemyType = nullptr;
 }
 
 bool EnemyClass::CheckEnemyIsInScreen()
 {
 	if(m_EnemyType->GetPosition().m_Vector.x < 0 || m_EnemyType->GetPosition().m_Vector.x > WINDOW_WIDTH ||
-		m_EnemyType->GetPosition().m_Vector.y < 0 || m_EnemyType->GetPosition().m_Vector.y > WINDOW_HEIGHT)
+		m_EnemyType->GetPosition().m_Vector.y < 0)
 	{
 		return false;
 	}
@@ -291,7 +389,7 @@ bool EnemyClass::CheckEnemyIsInScreen()
 	return true;
 }
 
-bool EnemyClass::Initiarize(int enemy_type , POSITION* position)
+bool EnemyClass::Initiarize(WaveManagerClass *wave_manager , int enemy_type , POSITION* position)
 {
 	switch (enemy_type)
 	{
@@ -304,7 +402,7 @@ bool EnemyClass::Initiarize(int enemy_type , POSITION* position)
 		break;
 	}
 	
-	m_EnemyType->Initialize(position);
+	m_EnemyType->Initialize(wave_manager , position);
 
 	return true;
 }
