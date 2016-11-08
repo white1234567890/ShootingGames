@@ -11,7 +11,7 @@ protected:
 	//メンバ変数
 
 	static const double m_GravityAccelaration;	//重力加速度
-	THREE_DIMENSION_VECTOR m_GravityVelocity;	//重力速度
+	THREE_DIMENSIONAL_VECTOR m_GravityVelocity;	//重力速度
 	bool m_GroundedFlag;	//接地フラグ
 	double m_Coefficient_of_Restitution;	//反発係数
 

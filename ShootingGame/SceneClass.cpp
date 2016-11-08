@@ -25,7 +25,7 @@ BaseSceneClass::~BaseSceneClass(void)
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
-//	描画再定義
+//	描画再定義（純粋仮想関数）
 //////////////////////////////////////////////////////////////////////////////
 void BaseSceneClass::Reshape()
 {
@@ -147,6 +147,7 @@ SceneMainClass::~SceneMainClass ()
 //////////////////////////////////////////////////////////////////////////////
 void SceneMainClass::Reshape()
 {
+	//プレイヤーのリシェイプ処理
 	cl_PlayerManager->WhenReshaped();
 }
 
@@ -159,10 +160,19 @@ void SceneMainClass::Reshape()
 //////////////////////////////////////////////////////////////////////////////
 bool SceneMainClass::Initiarize()
 {
+	//プレイヤーマネージャーのインスタンス生成
 	cl_PlayerManager = SingletonClass<PlayerManagerClass>::GetInstance();
+
+	//プレイヤーマネージャーの初期化
 	cl_PlayerManager->Initialize();
+
+	//エネミーマネージャーのインスタンス生成
 	cl_EnemyManager = SingletonClass<EnemyManagerClass>::GetInstance();
+	
+	//エネミーマネージャーの初期化
 	cl_EnemyManager->Initiarize();
+
+	//プレイヤーバレットマネージャーのインスタンス生成
 	cl_PlayerBulletManager = SingletonClass<PlayerBulletManagerClass>::GetInstance();
 	return true;
 }
@@ -175,9 +185,14 @@ bool SceneMainClass::Initiarize()
 //////////////////////////////////////////////////////////////////////////////
 bool SceneMainClass::Update()
 {
-	cl_PlayerManager->Update();
-	cl_EnemyManager->Update();
-	cl_PlayerBulletManager->Update();
+	//プレイヤーの更新
+	m_PlayerManager->Update();
+
+	//敵の更新
+	m_EnemyManager->Update(m_PlayerBulletManager);
+
+	//プレイヤーの弾の更新
+	m_PlayerBulletManager->Update();
 	return true;
 }
 
@@ -191,9 +206,15 @@ void SceneMainClass::Render()
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	//描画
-	cl_PlayerManager->Render();
-	cl_EnemyManager->Render();
-	cl_PlayerBulletManager->Render();
+
+	//プレイヤーの描画
+	m_PlayerManager->Render();
+
+	//敵の描画
+	m_EnemyManager->Render();
+
+	//プレイヤーの弾の描画
+	m_PlayerBulletManager->Render();
 
 	//命令の実行
 	glutSwapBuffers();

@@ -30,9 +30,6 @@ POSITION PlayerManagerClass::GetPlayerPosition()
 //////////////////////////////////////////////////////////////////////////////
 //概略:
 //	ウィンドウサイズが変化したときにプレイヤーのスピードを変化させる
-//引数:
-//	w:ウィンドウサイズ幅
-//	h:ウィンドウサイズ高さ
 //////////////////////////////////////////////////////////////////////////////
 void PlayerManagerClass::WhenReshaped()
 {
@@ -48,7 +45,8 @@ void PlayerManagerClass::WhenReshaped()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerManagerClass::Initialize()
 {
-	if(!m_Player.Initialize("data/player/playerstatus.csv" , &m_Shoulder_L , &m_Shoulder_R , &m_Back , &m_Hip)) return false;
+	//プレイヤーを初期化する
+	if(!m_Player.Initialize( , &m_Shoulder_L , &m_Shoulder_R , &m_Back , &m_Hip)) return false;
 	return true;
 }
 
@@ -60,7 +58,9 @@ bool PlayerManagerClass::Initialize()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerManagerClass::Update()
 {
+	//キー入力を確認する
 	m_Player.InputKey(InputClass::E_ALLOW_PLESS_TWICE);
+	//更新する
 	m_Player.Update();
 	return true;
 }
@@ -71,5 +71,5 @@ bool PlayerManagerClass::Update()
 //////////////////////////////////////////////////////////////////////////////
 void PlayerManagerClass::Render()
 {
-		m_Player.Render();
+	m_Player.Render();
 }

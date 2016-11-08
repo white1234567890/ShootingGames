@@ -85,7 +85,7 @@ double GetDistance(POSITION* position1 , POSITION* position2);
 //戻り値:
 //	内積した値
 //////////////////////////////////////////////////////////////////////////////
-double InnerProduct(THREE_DIMENSION_VECTOR *vector1 , THREE_DIMENSION_VECTOR *vector2);
+double InnerProduct(THREE_DIMENSIONAL_VECTOR *vector1 , THREE_DIMENSIONAL_VECTOR *vector2);
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
@@ -96,7 +96,7 @@ double InnerProduct(THREE_DIMENSION_VECTOR *vector1 , THREE_DIMENSION_VECTOR *ve
 //戻り値:
 //	外積した値
 //////////////////////////////////////////////////////////////////////////////
-THREE_DIMENSION_VECTOR CrossProduct(THREE_DIMENSION_VECTOR *vector1 , THREE_DIMENSION_VECTOR *vector2);
+THREE_DIMENSIONAL_VECTOR CrossProduct(THREE_DIMENSIONAL_VECTOR *vector1 , THREE_DIMENSIONAL_VECTOR *vector2);
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
@@ -113,14 +113,21 @@ bool HitBoxandRangeContact(POSITION* object1 , POSITION* object2 , double range)
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:
-//	2次元ベクトルを回転させる
+//	2次元ベクトルを回転させたベクトルを求める
 //引数:
-//	double& x:ベクトルのx成分
-//	double& y:ベクトルのy成分
+//	THREE_DIMENSIONAL_VECTOR *vector:元のベクトル
 //	double angle:回転させる角度(ラジアン)
 //////////////////////////////////////////////////////////////////////////////
-THREE_DIMENSION_VECTOR RotateVector2(double x ,double y ,double angle);
+THREE_DIMENSIONAL_VECTOR RotateVector2(THREE_DIMENSIONAL_VECTOR *vector , double angle);
 
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	2次元ベクトルを回転させる
+//引数:
+//	THREE_DIMENSIONAL_VECTOR &vector:回転させるベクトル
+//	double angle:回転させる角度(ラジアン)
+//////////////////////////////////////////////////////////////////////////////
+void RotateVector2(THREE_DIMENSIONAL_VECTOR &vector , double angle);
 
 //////////////////////////////////////////////////////////////////////////////
 //概略:

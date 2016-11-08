@@ -29,11 +29,22 @@ bool BoxClass::Initialize()
 	return true;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	オブジェクトを回転させる
+//引数:
+//	angle:角度
+//////////////////////////////////////////////////////////////////////////////
 void BoxClass::RotateObject(double angle)
 {
-	m_SemiLongVector = RotateVector2(m_SemiLongVector.x , m_SemiLongVector.y , angle);
-	m_SemiShortVector = RotateVector2(m_SemiShortVector.x , m_SemiShortVector.y , angle);
+	//半長軸ベクトルを回転させる
+	RotateVector2(m_SemiLongVector , angle);
+	//半短軸ベクトルを回転させる
+	RotateVector2(m_SemiShortVector , angle);
+	//回転した後の角度
 	m_Angle += angle;
+
+	//回転角が0>=　θ　<360にする
 	if(m_Angle >= M_PI * 2) m_Angle -= M_PI * 2;
 	else if(m_Angle < 0) m_Angle += M_PI * 2;
 }
@@ -109,7 +120,7 @@ double BoxClass::GetSemiShortAxis()
 //戻り値:
 //	m_SemiLongVector:矩形の半長軸のベクトル
 //////////////////////////////////////////////////////////////////////////////
-THREE_DIMENSION_VECTOR BoxClass::GetSemiLongVector()
+THREE_DIMENSIONAL_VECTOR BoxClass::GetSemiLongVector()
 {
 	return m_SemiLongVector;
 }
@@ -120,7 +131,7 @@ THREE_DIMENSION_VECTOR BoxClass::GetSemiLongVector()
 //戻り値:
 //	m_SemiShortVector:矩形の半短軸のベクトル
 //////////////////////////////////////////////////////////////////////////////
-THREE_DIMENSION_VECTOR BoxClass::GetSemiShortVector()
+THREE_DIMENSIONAL_VECTOR BoxClass::GetSemiShortVector()
 {
 	return m_SemiShortVector;
 }
@@ -166,7 +177,7 @@ bool BoxClass::Update()
 //戻り値:
 //	true:とりあえずtrueを返す
 //////////////////////////////////////////////////////////////////////////////
-bool BoxClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag)
+bool BoxClass::Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSIONAL_VECTOR* semi_long_vector , THREE_DIMENSIONAL_VECTOR* semi_short_vector , bool flag)
 {
 	m_Position = *position;
 	m_Velocity = *velocity;

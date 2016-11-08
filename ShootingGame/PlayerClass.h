@@ -3,31 +3,71 @@
 #include "InputClass.h"
 #include <string>
 
+//使用クラス宣言
 class ShoulderPartsClass;
 class BackPartsClass;
 class HipPartsClass;
+class CircleClass;
 
 class PlayerClass :
 	public BoxClass , public InputClass
 {
 private:
-	ShoulderPartsClass *m_Pointer_to_Shoulder_L;
-	ShoulderPartsClass *m_Pointer_to_Shoulder_R;
-	BackPartsClass *m_Pointer_to_Back;
-	HipPartsClass *m_Pointer_to_Hip;
-	double m_PLAYER_X_SPEED;
-	double m_PLAYER_Y_SPEED;
+	ShoulderPartsClass *m_Pointer_to_Shoulder_L;	//左肩へのポインタ
+	ShoulderPartsClass *m_Pointer_to_Shoulder_R;	//右肩へのポインタ
+	BackPartsClass *m_Pointer_to_Back;	//背中へのポインタ
+	HipPartsClass *m_Pointer_to_Hip;	//腰へのポインタ
+	double m_PLAYER_X_SPEED;	//横の速さ
+	double m_PLAYER_Y_SPEED;	//縦の速さ
 
-	bool m_ShotFlag;
+	CircleClass m_PlayerCollider;	//当たり判定
 
-	bool LoadPlayerStatus(std::string file_name);
+	bool m_ShotFlag;	//弾を撃つ
 
+	//////////////////////////////////////////////////////////////////////////////
+	//プレイヤーの情報をロード
+	//引数:
+	//	file_name:ロードするファイル名
+	//////////////////////////////////////////////////////////////////////////////
+	bool LoadPlayerStatus(int player_type);
+
+	//////////////////////////////////////////////////////////////////////////////
+	//入力キーチェック
+	//////////////////////////////////////////////////////////////////////////////
 	void CheckInput();
+
+	//////////////////////////////////////////////////////////////////////////////
+	//プレイヤーが画面外に行かない処理
+	//////////////////////////////////////////////////////////////////////////////
 	void PlayerCanNotOverScreen();
+
+	//////////////////////////////////////////////////////////////////////////////
+	//移動処理
+	//////////////////////////////////////////////////////////////////////////////
 	void MoveObject();
 	
-	bool InitializeChild();
+	//////////////////////////////////////////////////////////////////////////////
+	//概略:
+	//	子オブジェクトの初期設定
+	//引数:
+	//	shoulder_l_type
+	//	shoulder_r_type
+	//	back_type
+	//	hip_type
+	//戻り値:
+	//	true:初期化に成功
+	//	false:いずれかのデータのロードが失敗した
+	//////////////////////////////////////////////////////////////////////////////
+	bool InitializeChild(int shoulder_l_type , int shoulder_r_type , int back_type , int hip_type);
+
+	//////////////////////////////////////////////////////////////////////////////
+	//子の更新
+	//////////////////////////////////////////////////////////////////////////////
 	bool UpdateChild();
+
+	//////////////////////////////////////////////////////////////////////////////
+	//子の描画
+	//////////////////////////////////////////////////////////////////////////////
 	void RenderChild();
 
 public:
@@ -48,21 +88,30 @@ public:
 	//概略:
 	//	初期化
 	//引数:
-	//	*position:位置
-	//	*velocity:速度
-	//	*accelaration:加速度
-	//	*semi_long_vector:半長軸ベクトル
-	//	*semi_short_vector:半短軸ベクトル
+	//	player_type:プレイヤーキャラクターのタイプ
 	//	*shoulder_l:左肩パーツへのポインタ
+	//	shoulder_l_type:左肩パーツのタイプ
 	//	*shoulder_r:右肩パーツへのポインタ
+	//	shoulder_r_type:右肩パーツのタイプ
 	//	*back:背中パーツへのポインタ
+	//	back_type:背中パーツのタイプ
 	//	*hip:腰パーツへのポインタ
+	//	hip_type:腰パーツのタイプ
 	//	flag:フラグ
 	//戻り値:
-	//	true:とりあえずtrueを返す
+	//	true:初期化に成功
+	//	false:いずれかのファイルのロードが失敗している
 	//////////////////////////////////////////////////////////////////////////////
-	bool Initialize(std::string file_name , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag = true);
+	bool Initialize(int player_type ,
+		ShoulderPartsClass* shoulder_l , int shoulder_l_type ,
+		ShoulderPartsClass* shoulder_r , int shoulder_r_type ,
+		BackPartsClass* back , int back_type ,
+		HipPartsClass* hip , int hip_type ,
+		bool flag = true);
 
+	//////////////////////////////////////////////////////////////////////////////
+	//更新
+	//////////////////////////////////////////////////////////////////////////////
 	bool Update();
 
 	//////////////////////////////////////////////////////////////////////////////

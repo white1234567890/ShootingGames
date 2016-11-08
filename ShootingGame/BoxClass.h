@@ -10,11 +10,17 @@ protected:
 	FOUR_VERTEX m_Vertex;	//頂点
 	double m_SemiLongAxis;	//半長軸の長さ
 	double m_SemiShortAxis;	//半短軸の長さ
-	THREE_DIMENSION_VECTOR m_SemiLongVector;	//半長軸ベクトル
-	THREE_DIMENSION_VECTOR m_SemiShortVector;	//半短軸ベクトル
+	THREE_DIMENSIONAL_VECTOR m_SemiLongVector;	//半長軸ベクトル
+	THREE_DIMENSIONAL_VECTOR m_SemiShortVector;	//半短軸ベクトル
 	
 	virtual bool Initialize();
 
+	//////////////////////////////////////////////////////////////////////////////
+	//概略:
+	//	オブジェクトを回転させる
+	//引数:
+	//	angle:角度
+	//////////////////////////////////////////////////////////////////////////////
 	void RotateObject(double angle);
 
 public:
@@ -74,7 +80,7 @@ public:
 	//戻り値:
 	//	m_SemiLongVector:矩形の半長軸のベクトル
 	//////////////////////////////////////////////////////////////////////////////
-	THREE_DIMENSION_VECTOR GetSemiLongVector();
+	THREE_DIMENSIONAL_VECTOR GetSemiLongVector();
 
 	//////////////////////////////////////////////////////////////////////////////
 	//概略:
@@ -82,7 +88,7 @@ public:
 	//戻り値:
 	//	m_SemiShortVector:矩形の半短軸のベクトル
 	//////////////////////////////////////////////////////////////////////////////
-	THREE_DIMENSION_VECTOR GetSemiShortVector();
+	THREE_DIMENSIONAL_VECTOR GetSemiShortVector();
 	
 	//////////////////////////////////////////////////////////////////////////////
 	//概略:
@@ -117,7 +123,7 @@ public:
 	//戻り値:
 	//	true:とりあえずtrueを返す
 	//////////////////////////////////////////////////////////////////////////////
-	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSION_VECTOR* semi_long_vector , THREE_DIMENSION_VECTOR* semi_short_vector , bool flag = true);
+	bool Initialize(POSITION* position , VELOCITY* velocity , ACCELARATION* accelaration , THREE_DIMENSIONAL_VECTOR* semi_long_vector , THREE_DIMENSIONAL_VECTOR* semi_short_vector , bool flag = true);
 
 	//////////////////////////////////////////////////////////////////////////////
 	//概略:

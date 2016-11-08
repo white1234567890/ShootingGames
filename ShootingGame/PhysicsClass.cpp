@@ -9,7 +9,7 @@ const double PhysicsClass::m_GravityAccelaration = 1;
 //コンストラクタ
 PhysicsClass::PhysicsClass(void)
 {
-	m_GravityVelocity = THREE_DIMENSION_VECTOR();
+	m_GravityVelocity = THREE_DIMENSIONAL_VECTOR();
 	m_GroundedFlag = false;
 	m_Coefficient_of_Restitution = 0;
 }

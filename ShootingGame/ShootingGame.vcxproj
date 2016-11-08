@@ -89,6 +89,7 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="DebugRoom.h" />
     <ClInclude Include="DebugSwitch.h" />
+    <ClInclude Include="EnemyBulletManagerClass.h" />
     <ClInclude Include="EnemyClass.h" />
     <ClInclude Include="EnemyManagerClass.h" />
     <ClInclude Include="GraphicClass.h" />
@@ -116,6 +117,7 @@
     <ClCompile Include="BulletManagerClass.cpp" />
     <ClCompile Include="CircleClass.cpp" />
     <ClCompile Include="DebugRoom.cpp" />
+    <ClCompile Include="EnemyBulletManagerClass.cpp" />
     <ClCompile Include="EnemyClass.cpp" />
     <ClCompile Include="EnemyManagerClass.cpp" />
     <ClCompile Include="GraphicClass.cpp" />

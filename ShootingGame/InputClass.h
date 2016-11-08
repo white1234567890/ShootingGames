@@ -4,6 +4,7 @@
 class InputClass
 {
 protected:
+	//キーボードの番号
 	enum NOMAL_KEY_NUMBER
 	{
 		E_UP_ARROW_KEY = 1,
@@ -17,11 +18,12 @@ protected:
 		E_SHIFT_KEY = 1 << 8,
 	};
 
-	unsigned int m_OldKeyFlag;
-	unsigned int m_NowKeyFlag;
-	unsigned int m_InputKeyFlag;
+	unsigned int m_OldKeyFlag;	//前のキー
+	unsigned int m_NowKeyFlag;	//今のキー
+	unsigned int m_InputKeyFlag;	//2度押しチェックした後のキー
 
 public:
+	//インプットモード
 	enum INPUT_MODE
 	{
 		E_PROHIBIT_PRESS_TWICE,
@@ -31,8 +33,15 @@ public:
 	InputClass(void);
 	~InputClass(void);
 
+	//////////////////////////////////////////////////////////////////////////////
+	//キーボードの入力チェック
+	//////////////////////////////////////////////////////////////////////////////
 	void KeyBoard();
 
+	//////////////////////////////////////////////////////////////////////////////
+	//キー入力
+	//引数:
+	//	input_mode:インプットモード
+	//////////////////////////////////////////////////////////////////////////////
 	unsigned int InputKey(INPUT_MODE input_mode);
 };
-

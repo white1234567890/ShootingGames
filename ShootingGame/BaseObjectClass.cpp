@@ -51,6 +51,10 @@ void BaseObjectClass::AccelObject()
 	m_Velocity.m_Vector += m_Accelaration.m_Vector;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	オブジェクトを回転させる
+//////////////////////////////////////////////////////////////////////////////
 void BaseObjectClass::RotateObject(double angle)
 {
 }
@@ -72,8 +76,8 @@ void BaseObjectClass::ObjectBound()
 //////////////////////////////////////////////////////////////////////////////
 void BaseObjectClass::ObjectBound(BoxClass *obj)
 {
-	THREE_DIMENSION_VECTOR CollidedEdge = obj->GetVertex(0).m_Vector - obj->GetVertex(obj->GetVertexSize() - 1).m_Vector;	//当たっている辺を調べる
-	THREE_DIMENSION_VECTOR NomalVector = obj->GetPosition().m_Vector - (obj->GetVertex(obj->GetVertexSize() - 1).m_Vector + CollidedEdge * 0.5);	//四角形の法線ベクトル
+	THREE_DIMENSIONAL_VECTOR CollidedEdge = obj->GetVertex(0).m_Vector - obj->GetVertex(obj->GetVertexSize() - 1).m_Vector;	//当たっている辺を調べる
+	THREE_DIMENSIONAL_VECTOR NomalVector = obj->GetPosition().m_Vector - (obj->GetVertex(obj->GetVertexSize() - 1).m_Vector + CollidedEdge * 0.5);	//四角形の法線ベクトル
 	NomalVector.Nomalize();
 
 	for(int i = 0 ; i < obj->GetVertexSize() - 2 ; i++)
@@ -170,7 +174,7 @@ bool BaseObjectClass::GetFlag()
 //引数:
 //	*position:位置
 //////////////////////////////////////////////////////////////////////////////
-void BaseObjectClass::SetPosition(THREE_DIMENSION_VECTOR* position)
+void BaseObjectClass::SetPosition(THREE_DIMENSIONAL_VECTOR* position)
 {
 	m_Position.m_Vector = *position;
 }
@@ -181,7 +185,7 @@ void BaseObjectClass::SetPosition(THREE_DIMENSION_VECTOR* position)
 //引数:
 //	*velocity:速度
 //////////////////////////////////////////////////////////////////////////////
-void BaseObjectClass::SetVelocity(THREE_DIMENSION_VECTOR* velocity)
+void BaseObjectClass::SetVelocity(THREE_DIMENSIONAL_VECTOR* velocity)
 {
 	m_Velocity.m_Vector = *velocity;
 }
@@ -192,7 +196,7 @@ void BaseObjectClass::SetVelocity(THREE_DIMENSION_VECTOR* velocity)
 //引数:
 //	*accelaration:加速度
 //////////////////////////////////////////////////////////////////////////////
-void BaseObjectClass::SetAccelaration(THREE_DIMENSION_VECTOR* accelaration)
+void BaseObjectClass::SetAccelaration(THREE_DIMENSIONAL_VECTOR* accelaration)
 {
 	m_Accelaration.m_Vector = *accelaration;
 }

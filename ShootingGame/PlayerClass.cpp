@@ -13,6 +13,7 @@
 #include "ShoulderPartsClass.h"
 #include "BackPartsClass.h"
 #include "HipPartsClass.h"
+#include "CircleClass.h"
 
 //コンストラクタ
 PlayerClass::PlayerClass(void)
@@ -30,54 +31,72 @@ PlayerClass::~PlayerClass(void)
 //private関数
 //////////////////////////////////////////////////////////////////////////////
 
-bool PlayerClass::LoadPlayerStatus(std::string file_name)
+//////////////////////////////////////////////////////////////////////////////
+//プレイヤーの情報をロード
+//引数:
+//	file_name:ロードするファイル名
+//////////////////////////////////////////////////////////////////////////////
+bool PlayerClass::LoadPlayerStatus(int player_type)
 {
-	
-	std::ifstream ifs(file_name);
+	//ファイルを読み込む
+	std::ifstream ifs("data/player/playerstatus.csv");
 
+	//失敗したらfalseを返す
 	if(ifs.fail()) return false;
 
+	//データを読み込むための文字列
 	std::string PlayerStatus;
 	
-	for(int i = 0 ; i < 2 ; i++)
+	//最初の1行は無視する
+	std::getline(ifs , PlayerStatus);
+
+	//引き出したいプレイヤー情報まで行く
+	for(int i = 0 ; i <= player_type ; i++)
 	{
 		std::getline(ifs , PlayerStatus);
 	}
 
-	std::string token;
-	std::istringstream stream(PlayerStatus);
-	std::vector<double> TempVector;
+	std::string token;	//データ取り出し用のトークン
+	std::istringstream stream(PlayerStatus);	//データを一列読み込む文字列
+	std::vector<double> TempVector;	//データ変換用配列
 	
+	//','が来るたびにトークンに文字列を取り出す
 	while(getline(stream , token , ','))
 	{
+		//トークンの文字列を数字に変換する
 		TempVector.push_back(std::stod(token));
 	}
 
-	SPEED_X_ASPECT = TempVector[0];
-	SPEED_Y_ASPECT = TempVector[1];
+	//当たり判定の設定
+	m_PlayerCollider.Initialize(&m_Position , &m_Velocity , &m_Accelaration ,TempVector[1]);
 
+	//横の方が大きいとき
 	if(TempVector[2] >= TempVector[3])
 	{
-		m_SemiLongVector = THREE_DIMENSION_VECTOR(TempVector[2]);
-		m_SemiShortVector = THREE_DIMENSION_VECTOR(0 , TempVector[3]);
+		m_SemiLongVector = THREE_DIMENSIONAL_VECTOR(TempVector[2]);
+		m_SemiShortVector = THREE_DIMENSIONAL_VECTOR(0 , TempVector[3]);
 	}
+	//縦の方が大きいとき
 	else
 	{
-		m_SemiLongVector = THREE_DIMENSION_VECTOR(0 , TempVector[3]);
-		m_SemiShortVector = THREE_DIMENSION_VECTOR(TempVector[2]);
+		m_SemiLongVector = THREE_DIMENSIONAL_VECTOR(0 , TempVector[3]);
+		m_SemiShortVector = THREE_DIMENSIONAL_VECTOR(TempVector[2]);
 	}
 
-	if(TempVector[6] >= TempVector[7])
-	{
-		m_Pointer_to_Shoulder_L->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(TempVector[6] / 2) , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2));
-		m_Pointer_to_Shoulder_R->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(TempVector[6] / 2) , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2));
-	}
-	else
-	{
-		m_Pointer_to_Shoulder_L->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2) , &THREE_DIMENSION_VECTOR(TempVector[6] / 2));
-		m_Pointer_to_Shoulder_R->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , TempVector[7] / 2) , &THREE_DIMENSION_VECTOR(TempVector[6] / 2));
-	}
+	////ショット画像の横の方が大きいとき
+	//if(TempVector[6] >= TempVector[7])
+	//{
+	//	m_Pointer_to_Shoulder_L->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSIONAL_VECTOR(TempVector[6] / 2) , &THREE_DIMENSIONAL_VECTOR(0 , TempVector[7] / 2));
+	//	m_Pointer_to_Shoulder_R->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSIONAL_VECTOR(TempVector[6] / 2) , &THREE_DIMENSIONAL_VECTOR(0 , TempVector[7] / 2));
+	//}
+	////ショット画像の縦の方が大きいとき
+	//else
+	//{
+	//	m_Pointer_to_Shoulder_L->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSIONAL_VECTOR(0 , TempVector[7] / 2) , &THREE_DIMENSIONAL_VECTOR(TempVector[6] / 2));
+	//	m_Pointer_to_Shoulder_R->SetShotStatus(TempVector[4] , &VELOCITY() , TempVector[5] , &ACCELARATION() , &THREE_DIMENSIONAL_VECTOR(0 , TempVector[7] / 2) , &THREE_DIMENSIONAL_VECTOR(TempVector[6] / 2));
+	//}
 
+	//いらないvectorを開放する
 	ReleaseVector(TempVector);
 
 	return true;
@@ -117,8 +136,13 @@ void PlayerClass::PlayerCanNotOverScreen()
 	if(m_Position.m_Vector.x < 0) m_Position.m_Vector.x = 0;
 }
 
+
+/////////////////////////////////////////////////////////////////////////////
+//移動処理
+//////////////////////////////////////////////////////////////////////////////
 void PlayerClass::MoveObject()
 {
+	//SHIFTキーを押しているとき速さが半分になる
 	if(m_InputKeyFlag & E_SHIFT_KEY)
 	{
 		m_Position.m_Vector += m_Velocity.m_Vector * 0.5;
@@ -132,19 +156,25 @@ void PlayerClass::MoveObject()
 //////////////////////////////////////////////////////////////////////////////
 //概略:
 //	子オブジェクトの初期設定
+//引数:
+//	shoulder_l_type
+//	shoulder_r_type
+//	back_type
+//	hip_type
 //戻り値:
-//	true:とりあえずtrueを返す
+//	true:初期化に成功
+//	false:いずれかのデータのロードが失敗した
 //////////////////////////////////////////////////////////////////////////////
-bool PlayerClass::InitializeChild()
+bool PlayerClass::InitializeChild(int shoulder_l_type , int shoulder_r_type , int back_type , int hip_type)
 {
 	//左肩
-	m_Pointer_to_Shoulder_L->Initialize(&POSITION(10 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
+	if(!m_Pointer_to_Shoulder_L->Initialize(shoulder_l_type , &POSITION(10 , 32) , &VELOCITY() , &ACCELARATION() , this)) return false;
 	//右肩
-	m_Pointer_to_Shoulder_R->Initialize(&POSITION(-10 , 32) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(5) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
+	if(!m_Pointer_to_Shoulder_R->Initialize(shoulder_r_type , &POSITION(-10 , 32) , &VELOCITY() , &ACCELARATION() , this)) return false;
 	//背中
-	m_Pointer_to_Back->Initialize(&POSITION(0 , 10) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(0 , 10) , &THREE_DIMENSION_VECTOR(5) , this);
+	if(!m_Pointer_to_Back->Initialize(back_type , &POSITION(0 , 10) , &VELOCITY() , &ACCELARATION() , this)) return false;
 	//腰
-	m_Pointer_to_Hip->Initialize(&POSITION(0 , -10) , &VELOCITY() , &ACCELARATION() , &THREE_DIMENSION_VECTOR(10) , &THREE_DIMENSION_VECTOR(0 , 5) , this);
+	if(!m_Pointer_to_Hip->Initialize(hip_type , &POSITION(0 , -10) , &VELOCITY() , &ACCELARATION() , this)) return false;
 	return true;
 }
 
@@ -156,7 +186,9 @@ bool PlayerClass::InitializeChild()
 //////////////////////////////////////////////////////////////////////////////
 bool PlayerClass::UpdateChild()
 {
+	//左肩
 	m_Pointer_to_Shoulder_L->Update(m_ShotFlag);
+	//右肩
 	m_Pointer_to_Shoulder_R->Update(m_ShotFlag);
 	return true;
 }
@@ -182,49 +214,72 @@ void PlayerClass::RenderChild()
 //public関数
 //////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////
+//概略:
+//	プレイヤーの速度を設定する
+//引数:
+//	x:横軸速度
+//	y:縦軸速度
+//////////////////////////////////////////////////////////////////////////////
 void PlayerClass::SetPlayerSpeed(double x , double y)
 {
 	m_PLAYER_X_SPEED = x;
 	m_PLAYER_Y_SPEED = y;
 }
 
-/////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 //概略:
 //	初期化
 //引数:
-//	*position:位置
-//	*velocity:速度
-//	*accelaration:加速度
-//	*semi_long_vector:半長軸ベクトル
-//	*semi_short_vector:半短軸ベクトル
+//	player_type:プレイヤーキャラクターのタイプ
 //	*shoulder_l:左肩パーツへのポインタ
+//	shoulder_l_type:左肩パーツのタイプ
 //	*shoulder_r:右肩パーツへのポインタ
+//	shoulder_r_type:右肩パーツのタイプ
 //	*back:背中パーツへのポインタ
+//	back_type:背中パーツのタイプ
 //	*hip:腰パーツへのポインタ
+//	hip_type:腰パーツのタイプ
 //	flag:フラグ
 //戻り値:
-//	true:とりあえずtrueを返す
+//	true:初期化に成功
+//	false:いずれかのファイルのロードが失敗している
 //////////////////////////////////////////////////////////////////////////////
-bool PlayerClass::Initialize(std::string file_name , ShoulderPartsClass* shoulder_l , ShoulderPartsClass* shoulder_r , BackPartsClass* back , HipPartsClass* hip , bool flag)
+bool PlayerClass::Initialize(int player_type ,
+		ShoulderPartsClass* shoulder_l , int shoulder_l_type ,
+		ShoulderPartsClass* shoulder_r , int shoulder_r_type ,
+		BackPartsClass* back , int back_type ,
+		HipPartsClass* hip , int hip_type ,
+		bool flag = true)
 {
+	//定位置スタート
 	m_Position = POSITION(WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 10);
-	m_Velocity.m_Vector = THREE_DIMENSION_VECTOR();
+	//速度0スタート
+	m_Velocity.m_Vector = THREE_DIMENSIONAL_VECTOR();
+	//加速度0スタート
 	m_Accelaration = ACCELARATION();
 
+	//半長軸長
 	m_SemiLongAxis = m_SemiLongVector.Magnitude();
+	//半短軸長
 	m_SemiShortAxis = m_SemiShortVector.Magnitude();
 
+	//頂点の再設定
 	SetVertex();
 
-	m_Pointer_to_Shoulder_L = shoulder_l;
-	m_Pointer_to_Shoulder_R = shoulder_r;
-	m_Pointer_to_Back = back;
-	m_Pointer_to_Hip = hip;
+	//子のポインタを記憶する
+	m_Pointer_to_Shoulder_L = shoulder_l;	//左肩
+	m_Pointer_to_Shoulder_R = shoulder_r;	//右肩
+	m_Pointer_to_Back = back;	//背中
+	m_Pointer_to_Hip = hip;	//腰
 
-	LoadPlayerStatus(file_name);
+	//プレイヤーのデータをロードする
+	if(!LoadPlayerStatus(file_name)) return false;
 
+	//プレイヤーの速さを設定する
 	SetPlayerSpeed(SPEED_X_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / SPEED_ASPECT , SPEED_Y_ASPECT * WINDOW_WIDTH * WINDOW_HEIGHT / SPEED_ASPECT);
 
+	//子を初期化する
 	InitializeChild();
 
 	return true;

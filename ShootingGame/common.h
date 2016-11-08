@@ -18,14 +18,14 @@ static double SPEED_Y_ASPECT = 50;	//プレイヤーの速さのy軸比
 static double SPEED_X_ASPECT = 50;	//プレイヤーの速さのx軸比
 
 //3次元ベクトル
-typedef struct THREE_DIMENSION_VECTOR
+typedef struct THREE_DIMENSIONAL_VECTOR
 {
 	double x;	//x座標
 	double y;	//y座標
 	double z;	//z座標
 
 	//コンストラクタ
-	THREE_DIMENSION_VECTOR(double x = 0 , double y = 0 , double z = 0)
+	THREE_DIMENSIONAL_VECTOR(double x = 0 , double y = 0 , double z = 0)
 	{
 		this->x = x;
 		this->y = y;
@@ -33,9 +33,9 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 
 	//ベクトルの足し算
-	THREE_DIMENSION_VECTOR operator + (THREE_DIMENSION_VECTOR obj)
+	THREE_DIMENSIONAL_VECTOR operator + (THREE_DIMENSIONAL_VECTOR obj)
 	{
-		THREE_DIMENSION_VECTOR ret;
+		THREE_DIMENSIONAL_VECTOR ret;
 		ret.x = this->x + obj.x;
 		ret.y = this->y + obj.y;
 		ret.z = this->z + obj.z;
@@ -43,7 +43,7 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 
 	//ベクトルの足し算
-	void operator += (THREE_DIMENSION_VECTOR obj)
+	void operator += (THREE_DIMENSIONAL_VECTOR obj)
 	{
 		this->x = this->x + obj.x;
 		this->y = this->y + obj.y;
@@ -51,9 +51,9 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 
 	//ベクトルの引き算
-	THREE_DIMENSION_VECTOR operator - (THREE_DIMENSION_VECTOR obj)
+	THREE_DIMENSIONAL_VECTOR operator - (THREE_DIMENSIONAL_VECTOR obj)
 	{
-		THREE_DIMENSION_VECTOR ret;
+		THREE_DIMENSIONAL_VECTOR ret;
 		ret.x = this->x - obj.x;
 		ret.y = this->y - obj.y;
 		ret.z = this->z - obj.z;
@@ -61,7 +61,7 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 
 	//ベクトルの引き算
-	void operator -= (THREE_DIMENSION_VECTOR obj)
+	void operator -= (THREE_DIMENSIONAL_VECTOR obj)
 	{
 		this->x = this->x - obj.x;
 		this->y = this->y - obj.y;
@@ -69,9 +69,9 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 
 	//逆ベクトル
-	THREE_DIMENSION_VECTOR operator - ()
+	THREE_DIMENSIONAL_VECTOR operator - ()
 	{
-		THREE_DIMENSION_VECTOR ret;
+		THREE_DIMENSIONAL_VECTOR ret;
 		ret.x = -this->x;
 		ret.y = -this->y;
 		ret.z = -this->z;
@@ -79,9 +79,9 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 
 	//スカラー倍
-	THREE_DIMENSION_VECTOR operator * (double obj)
+	THREE_DIMENSIONAL_VECTOR operator * (double obj)
 	{
-		THREE_DIMENSION_VECTOR ret;
+		THREE_DIMENSIONAL_VECTOR ret;
 		ret.x = this->x * obj;
 		ret.y = this->y * obj;
 		ret.z = this->z * obj;
@@ -111,9 +111,9 @@ typedef struct THREE_DIMENSION_VECTOR
 	}
 
 	//単位ベクトル
-	THREE_DIMENSION_VECTOR GetNomalVector()
+	THREE_DIMENSIONAL_VECTOR GetNomalVector()
 	{
-		THREE_DIMENSION_VECTOR ret;
+		THREE_DIMENSIONAL_VECTOR ret;
 		ret.x = this->x / this->Magnitude();
 		ret.y = this->y / this->Magnitude();
 		ret.z = this->z / this->Magnitude();
@@ -125,12 +125,12 @@ typedef struct THREE_DIMENSION_VECTOR
 	{
 		*this = GetNomalVector();
 	}
-}THREE_DIMENSION_VECTOR;
+}THREE_DIMENSIONAL_VECTOR;
 
 //位置
 typedef struct POSITION
 {
-	THREE_DIMENSION_VECTOR m_Vector;	//位置ベクトル
+	THREE_DIMENSIONAL_VECTOR m_Vector;	//位置ベクトル
 		
 	//コンストラクタ
 	POSITION(double x = 0 , double y = 0 , double z = 0) : m_Vector(x , y , z){}
@@ -139,7 +139,7 @@ typedef struct POSITION
 //速度
 typedef struct VELOCITY
 {
-	THREE_DIMENSION_VECTOR m_Vector;	//速度ベクトル
+	THREE_DIMENSIONAL_VECTOR m_Vector;	//速度ベクトル
 
 	//コンストラクタ
 	VELOCITY(double x = 0 , double y = 0 , double z = 0) : m_Vector(x , y , z){}
@@ -148,7 +148,7 @@ typedef struct VELOCITY
 //加速度
 typedef struct ACCELARATION
 {
-	THREE_DIMENSION_VECTOR m_Vector;	//加速度ベクトル
+	THREE_DIMENSIONAL_VECTOR m_Vector;	//加速度ベクトル
 
 	//コンストラクタ
 	ACCELARATION(double x = 0 , double y = 0 , double z = 0) : m_Vector(x , y , z){}

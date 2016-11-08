@@ -13,30 +13,46 @@ protected:
 	virtual ~SingletonClass(void) {};
 
 public:
+
+	//////////////////////////////////////////////////////////////////////////////
+	//インスタンス生成
+	//////////////////////////////////////////////////////////////////////////////
 	static T* GetInstance()
 	{
+		//実体にnullポインタが入ってなかったら
 		if(instance != nullptr)
 		{
+			//実体を一度消す
 			delete instance;
 		}
 		
+		//実体を新しく生成する
 		instance = new T();
 
+		//そのポインタを返す
 		return instance;
 	}
 
+	//////////////////////////////////////////////////////////////////////////////
+	//（メモリを無駄にしないために）インスタンスを破壊する
+	//////////////////////////////////////////////////////////////////////////////
 	static T* Destroy()
 	{
+		//実体にnullポインタが入ってなかったら
 		if(instance != nullptr)
 		{
+			//実体を消す
 			delete instance;
 		}
 
+		//nullポインタを突っ込む
 		instance = nullptr;
 
+		//nullポインタを返す
 		return instance;
 	}
 };
 
+//とりあえずnullポインタで初期化する
 template<typename T>
 T* SingletonClass<T>::instance = nullptr;
